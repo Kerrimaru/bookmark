@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1> <%= current_user.email %>'s Bookmarks</h1>
+<h1><%= current_user.id %></h1>
 <div id='bookmarks-list'>
     <% @bookmarks.each do |bookmark| %>
       <div class='bookmark'>
