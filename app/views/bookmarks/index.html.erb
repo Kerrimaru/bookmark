@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1> <%= current_user.name %>'s Bookmarks</h1>
+<h1><%= current_user.id %></h1>
+<div id='bookmarks-list'>
+    <% @bookmarks.each do |bookmark| %>
+      <div class='bookmark'>
+        <!-- <td><%= bookmark.url %></td> -->
+        <!-- <td><%= link_to href: bookmark.url do %>
+          <%= image_tag bookmark.screenshot, alt: 'a really cool site'%>
+        <% end %></td> -->
+        <p><%= link_to image_tag(bookmark.screenshot), bookmark.url  %></p> 
+        <% if bookmark.title? %>
+          <h4><%= bookmark.title %></h4>
+        <% end %>
+        <!-- <p><%= link_to 'Show', bookmark %></p> -->
+        <p><%= link_to 'Edit', edit_bookmark_path(bookmark) %></p>
+        <p><%= link_to 'Destroy', bookmark, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+      </div>
+    <% end %>
+  </div>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bookmark', new_bookmark_path %>

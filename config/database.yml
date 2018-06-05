@@ -23,7 +23,8 @@ default: &default
 
 development:
   <<: *default
-  database: bookmark-app_development
+  database: bookmarks_development
+  url: postgres://bookmarks:pass123@localhost:5432/bookmarks-dev
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -55,9 +56,11 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
+
 test:
   <<: *default
   database: bookmark-app_test
+  url: postgres://bookmarks:pass123@localhost:5432/bookmarks-test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -80,6 +83,6 @@ test:
 #
 production:
   <<: *default
-  database: bookmark-app_production
-  username: bookmark-app
-  password: <%= ENV['BOOKMARK-APP_DATABASE_PASSWORD'] %>
+  database: bookmarks_production
+  username: bookmarks
+  password: <%= ENV['BOOKMARKS_DATABASE_PASSWORD'] %>

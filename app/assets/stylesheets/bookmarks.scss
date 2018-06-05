@@ -1,0 +1,15 @@
+// Place all the styles related to the bookmarks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#bookmarks-list{
+  margin: 20px;
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start
+}
+
+.bookmark {
+  margin: auto;
+}
