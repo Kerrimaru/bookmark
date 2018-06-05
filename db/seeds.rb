@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-@bella = User.create!(email: 'bella@dog.com', password: 'pass123')
-@vik = User.create!(email: 'vik@dog.com', password: 'pass123')
-@bunny = User.create!(email: 'bunbun@dog.com', password: 'pass123')
+@bella = User.create!(email: 'bella@dog.com', password: 'pass123', name: 'Bella')
+@vik = User.create!(email: 'vik@dog.com', password: 'pass123', name: 'Vik')
+@bunny = User.create!(email: 'bunbun@dog.com', password: 'pass123', name: 'BunBun')
 
 @bella.bookmarks.create!(
   url: 'https://kerrimaru.github.io/#main',
