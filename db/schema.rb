@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2018_05_28_170833) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.string "url", null: false
-    t.string "screenshot", null: false
+    t.string "screenshot", default: "tempScreen.png"
     t.string "title"
     t.bigint "user_id"
     t.datetime "created_at", null: false
