@@ -6,7 +6,23 @@ class BookmarksController < ApplicationController
   # GET /bookmarks
   # GET /bookmarks.json
   def index
-    @bookmarks = current_user.bookmarks
+    #@bookmarks = current_user.bookmarks
+    @filterrific = initialize_filterrific(
+     Bookmark,
+     params[:filterrific],
+      select_options: {
+        sorted_by: Bookmark.options_for_sorted_by,
+      },
+      persistence_id: 'shared_key',
+      default_filter_params: {},
+      available_filters: [:sorted_by, :with_country_id],
+   ) or return
+   @bookmarks = @filterrific.find.page(params[:page])
+
+   respond_to do |format|
+     format.html
+     format.js
+   end
   end
 
   # GET /bookmarks/1
