@@ -10,29 +10,42 @@
 @vik = User.create!(email: 'vik@dog.com', password: 'pass123', name: 'Vik')
 @bunny = User.create!(email: 'bunbun@dog.com', password: 'pass123', name: 'BunBun')
 
-@bella.bookmarks.create!(
+@b1 = Bookmark.create!(
   url: 'https://kerrimaru.github.io/#main',
   screenshot: 'tempScreen.png',
-  title: 'Really cool site!!'
+  title: 'Really cool site!!',
+  user: @bella
 )
 
-@bella.bookmarks.create!(
+@b2 = Bookmark.create!(
   url: 'http://blogpaws.com',
   screenshot: 'tempScreen.png',
-  title: 'blogpaws'
+  title: 'blogpaws',
+  user: @bella
 )
 
-@bella.bookmarks.create!(
+@b3 = Bookmark.create!(
   url: 'http://www.allthingsdogblog.com',
   screenshot: 'tempScreen.png',
-  title: 'dogggs'
+  title: 'dogggs',
+  user: @bella
 )
 
-@bella.bookmarks.create!(
+@b4 = Bookmark.create!(
   url: 'http://www.bringingupbella.com',
   screenshot: 'tempScreen.png',
-  title: 'A dog named bella!'
+  title: 'A dog named bella!',
+  user: @bella
 )
+
+@b1.image.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
+@b2.image.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
+@b3.image.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
+@b4.image.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
+
+
+
+
 # Bookmark.create!(
 #   user: @bella,
 #   url: 'https://kerrimaru.github.io/#main',
