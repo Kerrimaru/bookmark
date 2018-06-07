@@ -6,21 +6,16 @@
 </p>
 
 <p>
-  <strong>Screenshot:</strong>
-  <%= @bookmark.screenshot %>
-</p>
-
-<p>
   <strong>Title:</strong>
   <%= @bookmark.title %>
 </p>
 
-<% if @bookmark.image.attached? %>
+<% if @bookmark.screenshot.attached? %>
 
   <p>
     <strong>Image:</strong>
     <br>
-    <%= image_tag @bookmark.image %>
+    <%= image_tag @bookmark.screenshot %>
   </p>
 <% end %>
 

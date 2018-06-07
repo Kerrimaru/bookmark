@@ -1,10 +1,10 @@
 class Bookmark < ApplicationRecord
 
   belongs_to :user
-  has_one_attached :image
+  has_one_attached :screenshot
 
   validates :url, presence: true
-  validates :screenshot, presence: true
+  #validates :screenshot, presence: true
 
 
   self.per_page = 30
