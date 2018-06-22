@@ -10,32 +10,42 @@
 @vik = User.create!(email: 'vik@dog.com', password: 'pass123', name: 'Vik')
 @bunny = User.create!(email: 'bunbun@dog.com', password: 'pass123', name: 'BunBun')
 
+@dog = Tag.create!(tag: 'dog')
+@cute = Tag.create!(tag: 'cute')
+@fluffy = Tag.create!(tag: 'fluffy')
+@coding = Tag.create!(tag: 'coding')
+
+
 @b1 = Bookmark.create!(
   url: 'https://kerrimaru.github.io/#main',
   #screenshot: 'tempScreen.png',
   title: 'Really cool site!!',
-  user: @bella
+  user: @bella,
+  tags: [@fluffy, @dog, @cute, @coding]
 )
 
 @b2 = Bookmark.create!(
   url: 'http://blogpaws.com',
   #screenshot: 'tempScreen.png',
   title: 'blogpaws',
-  user: @bella
+  user: @bella,
+  tags: [@fluffy, @dog, @cute]
 )
 
 @b3 = Bookmark.create!(
   url: 'http://www.allthingsdogblog.com',
   #screenshot: 'tempScreen.png',
   title: 'dogggs',
-  user: @bella
+  user: @bella,
+  tags: [@fluffy, @dog, @cute]
 )
 
 @b4 = Bookmark.create!(
   url: 'http://www.bringingupbella.com',
   #screenshot: 'tempScreen.png',
   title: 'A dog named bella!',
-  user: @bella
+  user: @bella,
+  tags: [@fluffy, @dog, @cute]
 )
 
 @b1.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
