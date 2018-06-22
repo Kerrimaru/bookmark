@@ -6,13 +6,13 @@ class BookmarksController < ApplicationController
   # GET /bookmarks
   # GET /bookmarks.json
   def index
-    #@bookmarks = current_user.bookmarks.search(params[:search])
+    @bookmarks = current_user.bookmarks.search(params[:search])
     #@bookmarks = Bookmark.search(params[:search])
-    if params[:search]
-      @bookmarks = current_user.bookmarks.where(['title LIKE ?', "%#{params[:search]}%"])
-    else
-      @bookmarks = current_user.bookmarks
-    end
+    # if params[:search]
+    #   @bookmarks = current_user.bookmarks.where(['title LIKE ?', "%#{params[:search]}%"])
+    # else
+    #   @bookmarks = current_user.bookmarks
+    # end
 
     tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten
     @tags = tags.collect {|tag| tag.tag}.uniq

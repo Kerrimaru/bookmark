@@ -7,6 +7,13 @@ class Bookmark < ApplicationRecord
   has_and_belongs_to_many :tags
 
   validates :url, presence: true
+
+  scope :recent, lambda {
+    where(:created_at => 1.week.ago..Time.now)
+  }
+
+  scope :search, lambda {|search| where(['title LIKE ?', "%#{search}%"])}
+
   #validates :screenshot, presence: true
 
   # def self.search(search)
