@@ -6,23 +6,13 @@ class BookmarksController < ApplicationController
   # GET /bookmarks
   # GET /bookmarks.json
   def index
-    #@bookmarks = current_user.bookmarks
-    @filterrific = initialize_filterrific(
-     Bookmark,
-     params[:filterrific],
-      select_options: {
-        sorted_by: Bookmark.options_for_sorted_by,
-      },
-      persistence_id: 'shared_key',
-      default_filter_params: {},
-      available_filters: [:sorted_by, :with_tag_id],
-   ) or return
-   @bookmarks = @filterrific.find.page(params[:page])
-
-   respond_to do |format|
-     format.html
-     format.js
-   end
+    #@bookmarks = current_user.bookmarks.search(params[:search])
+    #@bookmarks = Bookmark.search(params[:search])
+    if params[:search]
+      @bookmarks = current_user.bookmarks.where(['title LIKE ?', "%#{params[:search]}%"])
+    else
+      @bookmarks = current_user.bookmarks
+    end
   end
 
   # GET /bookmarks/1

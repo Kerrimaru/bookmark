@@ -2,6 +2,15 @@
 
 <h1> <%= current_user.name %>'s Bookmarks</h1>
 <h1><%= current_user.id %></h1>
+
+<h4>Search by Title:</h4>
+
+<%= form_tag(bookmarks_path, method: :get) do %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag ("search"), :name => nil %>
+<% end %>
+
+
 <div id='bookmarks-list'>
     <% @bookmarks.each do |bookmark| %>
       <div class='bookmark'>
@@ -10,7 +19,7 @@
             <%= image_tag bookmark.screenshot, alt: 'a really cool site'%>
           <% end %></td>
         <% end %>
-
+          <p><%= bookmark.title %></p>
          <p><%= link_to 'Show', bookmark %></p>
         <p><%= link_to 'Edit', edit_bookmark_path(bookmark) %></p>
         <p><%= link_to 'Destroy', bookmark, method: :delete, data: { confirm: 'Are you sure?' } %></p>
@@ -24,48 +33,13 @@
 
 <%= link_to 'New Bookmark', new_bookmark_path %>
 
-<%#
-  Filterrific adds the `form_for_filterrific` view helper:
-  * adds dom id 'filterrific_filter'
-  * applies javascript behaviors:
-      * AJAX form submission on change
-      * AJAX spinner while AJAX request is being processed
-  * sets form_for options like :url, :method and input name prefix
-%>
-<%= form_for_filterrific @filterrific do |f| %>
-  <div>
-    Search
-    <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
-    <%= f.text_field(
-      :search_query,
-      class: 'filterrific-periodically-observed'
-    ) %>
-  </div>
- 
- 
-  <div>
-    Sorted by
-    <%= f.select(:sorted_by, @filterrific.select_options[:sorted_by]) %>
-  </div>
-  <div>
-    <%= link_to(
-      'Reset filters',
-      reset_filterrific_url,
-    ) %>
-  </div>
- 
-<% end %>
-
-<%= render(
-  partial: 'bookmarks/list',
-  locals: { bookmarks: @bookmarks }
-) %>
-
-<script type="text/javascript">
-  <% js = escape_javascript(
-  render(partial: 'bookmarks/list', locals: { bookmarks: @bookmarks })
-) %>
-$("#filterrific_results").html("<%= js %>");
-</script>
 
 
+
+
+    <% %>
+    <% %>
+    <% %>
+    <% %>
+    <% %>
+    <% %>
