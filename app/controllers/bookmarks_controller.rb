@@ -15,7 +15,7 @@ class BookmarksController < ApplicationController
       },
       persistence_id: 'shared_key',
       default_filter_params: {},
-      available_filters: [:sorted_by, :with_country_id],
+      available_filters: [:sorted_by, :with_tag_id],
    ) or return
    @bookmarks = @filterrific.find.page(params[:page])
 
