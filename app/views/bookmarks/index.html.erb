@@ -5,9 +5,11 @@
 <div id='bookmarks-list'>
     <% @bookmarks.each do |bookmark| %>
       <div class='bookmark'>
-        <td><%= link_to href: bookmark.url do %>
-          <%= image_tag bookmark.screenshot, alt: 'a really cool site'%>
-        <% end %></td>
+        <% if bookmark.screenshot.attached? %>
+          <td><%= link_to href: bookmark.url do %>
+            <%= image_tag bookmark.screenshot, alt: 'a really cool site'%>
+          <% end %></td>
+        <% end %>
 
          <p><%= link_to 'Show', bookmark %></p>
         <p><%= link_to 'Edit', edit_bookmark_path(bookmark) %></p>
