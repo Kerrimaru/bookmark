@@ -9,6 +9,14 @@
   <%= text_field_tag(:search, params[:search]) %>
   <%= submit_tag ("search"), :name => nil %>
 <% end %>
+<div id='tag-list'>
+<h4>Select by tag:</h4>
+<ul>
+  <% @tags.each do |tag| %>
+    <li><%= tag %></li>
+  <% end %>
+</ul>
+</div>
 
 
 <div id='bookmarks-list'>

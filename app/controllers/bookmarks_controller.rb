@@ -13,6 +13,9 @@ class BookmarksController < ApplicationController
     else
       @bookmarks = current_user.bookmarks
     end
+
+    tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten
+    @tags = tags.collect {|tag| tag.tag}.uniq
   end
 
   # GET /bookmarks/1

@@ -14,6 +14,7 @@
 @cute = Tag.create!(tag: 'cute')
 @fluffy = Tag.create!(tag: 'fluffy')
 @coding = Tag.create!(tag: 'coding')
+@bad = Tag.create!(tag: 'BAD TAG DONT SEE ME!!!!')
 
 
 @b1 = Bookmark.create!(
@@ -29,7 +30,7 @@
   #screenshot: 'tempScreen.png',
   title: 'blogpaws',
   user: @bella,
-  tags: [@fluffy, @dog, @cute]
+  tags: [@cute]
 )
 
 @b3 = Bookmark.create!(
@@ -37,7 +38,7 @@
   #screenshot: 'tempScreen.png',
   title: 'dogggs',
   user: @bella,
-  tags: [@fluffy, @dog, @cute]
+  tags: [@dog, @cute]
 )
 
 @b4 = Bookmark.create!(
@@ -45,13 +46,22 @@
   #screenshot: 'tempScreen.png',
   title: 'A dog named bella!',
   user: @bella,
-  tags: [@fluffy, @dog, @cute]
+  tags: [@fluffy, @dog]
+)
+
+@b5 = Bookmark.create!(
+  url: 'http://www.bringingupbella.com',
+  #screenshot: 'tempScreen.png',
+  title: 'WARNING YOU SHOULD NOT SEE ME UNLESS YOU ARE VIK!!!!',
+  user: @vik,
+  tags: [@coding]
 )
 
 @b1.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
 @b2.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
 @b3.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
 @b4.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
+@b5.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
 
 
 
