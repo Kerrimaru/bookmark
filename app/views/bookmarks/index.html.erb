@@ -8,12 +8,8 @@
     <h2>Welcome, <%= current_user.name %></h2>
 </div>
 
-
-
 <img src="/assets/right-arrow.png" id='open-button'>
-
 <div id='filters' style="display: none">
-  <div id='subfilters'>
   <img src="/assets/left-arrow.png" id='close-button'> 
   <h4 id='tag-title'>Select tags:</h4>
   <%= form_tag(tags_path, method: :get) do %>
@@ -24,10 +20,9 @@
       <% end %>      
     </ul>
     <%= submit_tag "Search" %>
-  <% end %> 
+  <% end %>
 </div>
-</div>
-<div id='main'>
+
 <div id='bookmarks-list'>
   <% @bookmarks.each do |bookmark| %>
     <div class='bookmark'>
@@ -36,7 +31,6 @@
           <%= image_tag bookmark.screenshot, :class =>'screenshot'%>
         <% end %>
       <% end %>
-
       <div class='bookmark-text'>
         <h4><%= bookmark.title %></h4>
         <% bookmark.tags.each do |tag| %>
@@ -48,11 +42,7 @@
       </div>        
     </div>
   <% end %>
-
-<%= link_to 'New Bookmark', new_bookmark_path %>
 </div>
-</div>
-
 
 <script type="text/javascript">
   
@@ -64,8 +54,8 @@ document.getElementById('close-button').addEventListener('click', function(){
 })
 
 function openNav(){
-  document.getElementById("bookmarks-list").style.marginLeft = "25%";
-  document.getElementById("filters").style.width = "25vw";
+  document.getElementById("bookmarks-list").style.marginLeft = "16vw";
+  document.getElementById("filters").style.width = "16vw";
   document.getElementById("filters").style.display = "inline";
   document.getElementById("open-button").style.display = 'none';
 }
