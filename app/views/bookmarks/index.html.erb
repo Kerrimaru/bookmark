@@ -8,26 +8,26 @@
     <h2>Welcome, <%= current_user.name %></h2>
 </div>
 
+
+
 <img src="/assets/right-arrow.png" id='open-button'>
 
-<div id='filters'>
-  <img src="/assets/left-arrow.png" id='close-button'>
-  <div id='tag-list'>
-    <h4>Select tags:</h4>
-    <%= form_tag(tags_path, method: :get) do %>
+<div id='filters' style="display: none">
+  <div id='subfilters'>
+  <img src="/assets/left-arrow.png" id='close-button'> 
+  <h4 id='tag-title'>Select tags:</h4>
+  <%= form_tag(tags_path, method: :get) do %>
     <ul>
-      <% @tags.each do |tag| %>
-        <li>
-          <%= check_box_tag "[tag][]", tag.id %>
-          <%= label_tag :tag, tag.tag  %>
-        </li>
-      <% end %>
-      <%= submit_tag "Search" %>
-      <% end %>
+      <% @tags.each do |tag| %>        
+        <li class='tag'><%= check_box_tag "[tag][]", tag.id %>
+        <%= label_tag :tag, tag.tag  %></li>        
+      <% end %>      
     </ul>
-  </div>
+    <%= submit_tag "Search" %>
+  <% end %> 
 </div>
-
+</div>
+<div id='main'>
 <div id='bookmarks-list'>
   <% @bookmarks.each do |bookmark| %>
     <div class='bookmark'>
@@ -48,8 +48,10 @@
       </div>        
     </div>
   <% end %>
-</div>
+
 <%= link_to 'New Bookmark', new_bookmark_path %>
+</div>
+</div>
 
 
 <script type="text/javascript">

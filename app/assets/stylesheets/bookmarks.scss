@@ -25,8 +25,8 @@
 
 
 #bookmarks-list {
-  margin: 20px;
-  margin-top: 40px;
+  // margin: 20px;
+  // margin-top: 40px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start
@@ -61,10 +61,13 @@
   text-align: left;
 }
 
-#filters {
-  display:none;
-  overflow: hidden;
-  max-width: 125px;
+#subfilters {
+  //display:none;
+  width: 200px;
+  height: 100vh;
+  margin: 0;
+  // overflow: hidden;
+  // max-width: 125px;
 }
 
 .screenshot {
@@ -79,4 +82,26 @@ h4 {
 
 span {
   padding: 3px;
+}
+
+// #filters form {
+//   display: inline;
+// }
+
+
+// #tag-list{
+//   display: inline;
+// }
+
+// #tag-title {
+//   display:inline;
+// }
+
+// ul {
+//   display: inline;
+// }
+
+#bookmarks-list {
+  position: absolute;
+  top: 200px;
 }
