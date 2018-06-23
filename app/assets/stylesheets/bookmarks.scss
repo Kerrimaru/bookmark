@@ -2,7 +2,29 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#bookmarks-list{
+::-webkit-input-placeholder {
+   font-style: italic;
+}
+
+#title-search {
+  text-align: center;
+  margin:20px;
+  display: inline;
+}
+
+#title-search form button {
+  height: 36px;
+  display: none;
+}
+
+#search {
+  width: 30vw;
+  height: 30px;
+  text-align: center;
+}
+
+
+#bookmarks-list {
   margin: 20px;
   margin-top: 40px;
   display: flex;
@@ -12,4 +34,49 @@
 
 .bookmark {
   margin: auto;
+  max-width: 225px;
+  flex: 1;
+}
+
+.bookmark-text {
+  min-height: 125px;
+  position: relative;
+}
+
+.bookmark-text #edit, .bookmark-text #delete{
+  display: none;
+}
+
+.bookmark-text:hover #edit, .bookmark-text:hover #delete{
+  //display:block;
+  display: inline;
+}
+
+#delete {
+  text-align: right;
+  float:right;
+}
+
+#edit {
+  text-align: left;
+}
+
+#filters {
+  display:none;
+  overflow: hidden;
+  max-width: 125px;
+}
+
+.screenshot {
+  //max-height: 185px;
+  max-width: 225px;
+}
+
+h4 {
+  font-size: 20px;
+  padding: 5px;
+}
+
+span {
+  padding: 3px;
 }

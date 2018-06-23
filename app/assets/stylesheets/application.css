@@ -14,3 +14,29 @@
  *= require bookmarks.css
  *= require default.css
  */
+
+body {
+  max-width: 100vw;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+/*header {
+  box-sizing: border-box;
+  display: inline;
+  height: 15vh;
+  background-color: black;
+}*/
+
+
+a {
+  text-decoration: none;
+}
+
+h2 {
+  text-align: right;
+}
+
+#logins {
+  text-align: right;
+}

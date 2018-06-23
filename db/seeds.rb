@@ -14,7 +14,13 @@
 @cute = Tag.create!(tag: 'cute')
 @fluffy = Tag.create!(tag: 'fluffy')
 @coding = Tag.create!(tag: 'coding')
-@bad = Tag.create!(tag: 'BAD TAG DONT SEE ME!!!!')
+@bikes = Tag.create!(tag: 'bikes')
+@birds = Tag.create!(tag: 'birds')
+@poetry = Tag.create!(tag: 'poetry')
+@flowers = Tag.create!(tag: 'flowers')
+@belgian = Tag.create!(tag: 'belgian beer')
+@canals = Tag.create!(tag: 'canals')
+
 
 
 @b1 = Bookmark.create!(
@@ -57,12 +63,72 @@
   tags: [@coding]
 )
 
-@b1.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
-@b2.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
-@b3.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
-@b4.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
-@b5.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
+@b6 = Bookmark.create!(
+  url: 'http://www.bringingupbella.com',
+  #screenshot: 'tempScreen.png',
+  title: 'A dog named bella!',
+  user: @bella,
+)
 
+@b7 = Bookmark.create!(
+  url: 'http://www.bringingupbella.com',
+  #screenshot: 'tempScreen.png',
+  title: 'A dog named bella!',
+  user: @bella,
+)
+
+@b8 = Bookmark.create!(
+  url: 'http://www.bringingupbella.com',
+  #screenshot: 'tempScreen.png',
+  title: 'A dog named bella!',
+  user: @bella,
+)
+
+
+@b9 = Bookmark.create!(
+  url: 'http://www.bringingupbella.com',
+  #screenshot: 'tempScreen.png',
+  title: 'A dog named bella!',
+  user: @bella,
+)
+
+@b10 = Bookmark.create!(
+  url: 'http://www.bringingupbella.com',
+  #screenshot: 'tempScreen.png',
+  title: 'A dog named bella!',
+  user: @bella,
+)
+
+@b11 = Bookmark.create!(
+  url: 'http://www.bringingupbella.com',
+  #screenshot: 'tempScreen.png',
+  title: 'A dog named bella!',
+  user: @bella,
+)
+
+@b12 = Bookmark.create!(
+  url: 'http://www.bringingupbella.com',
+  #screenshot: 'tempScreen.png',
+  title: 'A dog named bella!',
+  user: @bella,
+)
+
+# @b1.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
+# @b2.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
+# @b3.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
+# @b4.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
+# @b5.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
+
+Bookmark.all.each do |bookmark|
+  #bookmark.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
+  bookmark.screenshot.attach(io: File.open('app/assets/images/defaultScreen.jpg'), filename: 'defaultScreen.jpg')
+end
+
+Bookmark.all.each do |bookmark|
+    x = Tag.all.shuffle
+    random_tag = [x[0],x[1]]
+    bookmark.tags << random_tag
+end
 
 
 

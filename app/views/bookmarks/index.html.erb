@@ -1,51 +1,77 @@
-<p id="notice"><%= notice %></p>
-
-<h1> <%= current_user.name %>'s Bookmarks</h1>
-<h1><%= current_user.id %></h1>
-<div id='title-search'>
-<h4>Search by Title:</h4>
-<%= form_tag(bookmarks_path, method: :get) do %>
-  <%= text_field_tag(:search, params[:search]) %>
-  <%= submit_tag ("search"), :name => nil %>
-<% end %>
+<div id='index-head'>
+  <div id='title-search'>
+  <%= form_tag(bookmarks_path, method: :get) do %>
+    <%= text_field_tag(:search, params[:search], placeholder: 'Search by title...') %>
+    <%= button_tag "search", :name => nil %>
+  <% end %>
+  </div>
+    <h2>Welcome, <%= current_user.name %></h2>
 </div>
 
-<div id='tag-list'>
-<h4>Select by tags:</h4>
-<%= form_tag(tags_path, method: :get) do %>
-<ul>
-  <% @tags.each do |tag| %>
-    <li>
-      <%= check_box_tag "[tag][]", tag.id %>
-      <%= label_tag :tag, tag.tag  %>
-    </li>
-  <% end %>
-  <%= submit_tag "Search" %>
-  <% end %>
-</ul>
+<img src="/assets/right-arrow.png" id='open-button'>
+
+<div id='filters'>
+  <img src="/assets/left-arrow.png" id='close-button'>
+  <div id='tag-list'>
+    <h4>Select tags:</h4>
+    <%= form_tag(tags_path, method: :get) do %>
+    <ul>
+      <% @tags.each do |tag| %>
+        <li>
+          <%= check_box_tag "[tag][]", tag.id %>
+          <%= label_tag :tag, tag.tag  %>
+        </li>
+      <% end %>
+      <%= submit_tag "Search" %>
+      <% end %>
+    </ul>
+  </div>
 </div>
 
 <div id='bookmarks-list'>
-    <% @bookmarks.each do |bookmark| %>
-      <div class='bookmark'>
-        <% if bookmark.screenshot.attached? %>
-          <td><%= link_to href: bookmark.url do %>
-            <%= image_tag bookmark.screenshot, alt: 'a really cool site'%>
-          <% end %></td>
+  <% @bookmarks.each do |bookmark| %>
+    <div class='bookmark'>
+      <% if bookmark.screenshot.attached? %>
+       <%= link_to bookmark.url do %>
+          <%= image_tag bookmark.screenshot, :class =>'screenshot'%>
         <% end %>
-        <p><%= bookmark.title %></p>
+      <% end %>
+
+      <div class='bookmark-text'>
+        <h4><%= bookmark.title %></h4>
         <% bookmark.tags.each do |tag| %>
           <span><%= tag.tag %></span>
         <% end %>
-        <p><%= link_to 'Show', bookmark %></p>
-        <p><%= link_to 'Edit', edit_bookmark_path(bookmark) %></p>
-        <p><%= link_to 'Destroy', bookmark, method: :delete, data: { confirm: 'Are you sure?' } %></p>
-      </div>
-    <% end %>
-  </div>
-  </tbody>
-</table>
-
-<br>
-
+        <br><br>
+        <span id='edit'><%= link_to image_tag("/assets/edit2.png"), edit_bookmark_path(bookmark) %></span>
+        <span id='delete'><%= link_to image_tag("/assets/trash.png"), bookmark, method: :delete, data: { confirm: 'Are you sure?' } %></span>      
+      </div>        
+    </div>
+  <% end %>
+</div>
 <%= link_to 'New Bookmark', new_bookmark_path %>
+
+
+<script type="text/javascript">
+  
+document.getElementById('open-button').addEventListener('click', function(){
+  openNav();
+})
+document.getElementById('close-button').addEventListener('click', function(){
+  closeNav();
+})
+
+function openNav(){
+  document.getElementById("bookmarks-list").style.marginLeft = "25%";
+  document.getElementById("filters").style.width = "25vw";
+  document.getElementById("filters").style.display = "inline";
+  document.getElementById("open-button").style.display = 'none';
+}
+
+function closeNav(){
+  document.getElementById("bookmarks-list").style.marginLeft = "0%";
+  document.getElementById("filters").style.display = "none";
+  document.getElementById("open-button").style.display = "inline";
+}
+
+</script>
