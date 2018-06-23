@@ -14,8 +14,10 @@ class BookmarksController < ApplicationController
     #   @bookmarks = current_user.bookmarks
     # end
 
-    tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten
-    @tags = tags.collect {|tag| tag.tag}.uniq
+    # tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten
+    # @tags = tags.collect {|tag| tag}.uniq
+    @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq
+
   end
 
   # GET /bookmarks/1

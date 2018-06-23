@@ -2,22 +2,28 @@
 
 <h1> <%= current_user.name %>'s Bookmarks</h1>
 <h1><%= current_user.id %></h1>
-
+<div id='title-search'>
 <h4>Search by Title:</h4>
-
 <%= form_tag(bookmarks_path, method: :get) do %>
   <%= text_field_tag(:search, params[:search]) %>
   <%= submit_tag ("search"), :name => nil %>
 <% end %>
+</div>
+
 <div id='tag-list'>
-<h4>Select by tag:</h4>
+<h4>Select by tags:</h4>
+<%= form_tag(tags_path, method: :get) do %>
 <ul>
   <% @tags.each do |tag| %>
-    <li><%= tag %></li>
+    <li>
+      <%= check_box_tag "[tag][]", tag.id %>
+      <%= label_tag :tag, tag.tag  %>
+    </li>
+  <% end %>
+  <%= submit_tag "Search" %>
   <% end %>
 </ul>
 </div>
-
 
 <div id='bookmarks-list'>
     <% @bookmarks.each do |bookmark| %>
@@ -43,14 +49,3 @@
 <br>
 
 <%= link_to 'New Bookmark', new_bookmark_path %>
-
-
-
-
-
-    <% %>
-    <% %>
-    <% %>
-    <% %>
-    <% %>
-    <% %>
