@@ -26,13 +26,13 @@ class BookmarksController < ApplicationController
 
   # POST /bookmarks
   # POST /bookmarks.json
-  def create
-    @bookmark = current_user.bookmarks.new(bookmark_params)
-    tags = params[:bookmark][:tags]
-    tags.each do |tag_id|
-      if tag_id != ''
+   def create
+    @bookmark = current_user.bookmarks.new(bookmark_params)    
+    tags = [params[:bookmark][:tags]]
+    if tags != [nil]
+      tags.each do |tag_id|
         tag = Tag.find(tag_id)
-        @bookmark.tags << tag 
+        @bookmark.tags << tag
       end
     end
 
