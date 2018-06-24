@@ -29,7 +29,6 @@ class BookmarksController < ApplicationController
   def create
     @bookmark = current_user.bookmarks.new(bookmark_params)
     tags = params[:bookmark][:tags]
-    binding.pry
     tags.each do |tag_id|
       if tag_id != ''
         tag = Tag.find(tag_id)
@@ -51,6 +50,14 @@ class BookmarksController < ApplicationController
   # PATCH/PUT /bookmarks/1
   # PATCH/PUT /bookmarks/1.json
   def update
+    tags = params[:bookmark][:tags]
+    tags.each do |tag_id|
+      if tag_id != ''
+        tag = Tag.find(tag_id)
+        @bookmark.tags << tag 
+      end
+    end
+    
     respond_to do |format|
       if @bookmark.update(bookmark_params)
         format.html { redirect_to @bookmark, notice: 'Bookmark was successfully updated.' }
