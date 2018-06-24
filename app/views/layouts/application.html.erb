@@ -7,22 +7,22 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Quicksand" rel="stylesheet">
   </head>
+  
+  <% if !signed_in? %>
+    <body background="/assets/memories.jpg">
+      <div class='login-container'>
+        <%= yield %>
+      </div>
+    </body>
+  </html>
+   
+  <% else %>
+    <body>
+      <%= render 'layouts/header' %>
+      <%= yield %>
+    </body>
+  </html>
+<% end %>
 
-  <body>
-    <%= render 'layouts/logins' %>
-    
-   <!--  <div id='logins'>
-      <% if user_signed_in? %>
-        <p>
-          <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-        </p>
-      <% else %>
-        <p>
-          <%= link_to('Login', new_user_session_path) %>
-        </p>
-      <% end %>
-    </div> -->
-    <%= yield %>
-  </body>
-</html>

@@ -14,3 +14,67 @@
  *= require bookmarks.css
  *= require default.css
  */
+
+body {
+  max-width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 20px;
+  /*font-family: 'Roboto', sans-serif;*/
+  /*font-family: 'Montserrat', sans-serif;*/
+  font-family: 'Quicksand', sans-serif;
+  height: 100%;
+  background-size: cover;
+}
+
+/*header {
+  box-sizing: border-box;
+  display: inline;
+  height: 15vh;
+  background-color: black;
+}*/
+
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+    color: #000;
+}
+
+h2 {
+  text-align: right;
+  font-size: 20px;
+}
+
+#logins {
+  text-align: right;
+}
+
+.login-container {
+
+  padding: 40px;
+  min-height: 50vh;
+  margin: auto;
+  margin-top: 15vh;
+  width: 50%;
+  background: rgba(204, 204, 204, 0.7);
+  text-align: center;
+}
+
+.field input {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.actions input {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  border-color: #a9a9a9;
+  border-width: 0.5px;
+  color: black;
+  background: #ffffff;
+  height: 21px;
+  width: 16%;
+}

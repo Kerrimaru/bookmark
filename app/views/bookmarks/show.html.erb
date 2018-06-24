@@ -6,14 +6,18 @@
 </p>
 
 <p>
-  <strong>Screenshot:</strong>
-  <%= @bookmark.screenshot %>
-</p>
-
-<p>
   <strong>Title:</strong>
   <%= @bookmark.title %>
 </p>
+
+<% if @bookmark.screenshot.attached? %>
+
+  <p>
+    <strong>Image:</strong>
+    <br>
+    <%= image_tag @bookmark.screenshot %>
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_bookmark_path(@bookmark) %> |
 <%= link_to 'Back', bookmarks_path %>

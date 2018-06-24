@@ -1,0 +1,29 @@
+<div id="filterrific_results">
+
+<table>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Country</th>
+      <th>Registered at</th>
+    </tr>
+  
+    <% bookmarks.each do |bookmark| %>
+      <tr>
+        <% if bookmark.screenshot.attached? %>
+          <td><p><%= link_to image_tag(bookmark.screenshot), bookmark.url  %></p></td>
+        <% end %>
+        
+        <% if bookmark.title? %>
+         <td> <%= bookmark.title %></td>
+        <% end %>
+       
+       <td> <%= bookmark.created_at %></td>
+       </tr>
+    <% end %>
+   </table>
+</div>
+
+
+
+

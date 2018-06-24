@@ -1,12 +1,23 @@
 class BookmarksController < ApplicationController
-  before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
+  before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
+                :authenticate_user!
   
-
   # GET /bookmarks
   # GET /bookmarks.json
   def index
-    @bookmarks = current_user.bookmarks
+    @bookmarks = current_user.bookmarks.search(params[:search])
+    #@bookmarks = Bookmark.search(params[:search])
+    # if params[:search]
+    #   @bookmarks = current_user.bookmarks.where(['title LIKE ?', "%#{params[:search]}%"])
+    # else
+    #   @bookmarks = current_user.bookmarks
+    # end
+
+    # tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten
+    # @tags = tags.collect {|tag| tag}.uniq
+    @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq
+
   end
 
   # GET /bookmarks/1
@@ -71,6 +82,6 @@ class BookmarksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bookmark_params
-      params.require(:bookmark).permit(:url, :screenshot, :title)
+      params.require(:bookmark).permit(:url, :screenshot, :title, :image)
     end
 end
