@@ -17,11 +17,20 @@
   display: none;
 }
 
+// #index-head {
+//   text-align:center;
+// }
+
 #search {
+  //margin: auto;
   width: 30vw;
   height: 30px;
   text-align: center;
 }
+
+// #title-search form {
+//   display: inline;
+// }
 
 #bookmarks-list {
   display: flex;
@@ -37,8 +46,18 @@
   flex: 1;
 }
 
+.bookmark {
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+
+.bookmark:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+
 .bookmark-text {
-  min-height: 125px;
+  min-height: 133px;
   position: relative;
 }
 
@@ -65,13 +84,88 @@
 
 h4 {
   font-size: 20px;
-  padding: 5px;
+  //color: #a9a9a9;
+  // font-weight: bold;
+  margin: 7px 0;
+  color: #353232;
 }
 
-span {
-  padding: 3px;
+h3 {
+  font-size: 23px;
+  margin-bottom: 25px;
+}
+
+.main-tag {
+  //color: #a9a9a9;
+  background-color: #f1f1f1;
+  padding-right: 8px;
+  padding-left: 8px;
+  border-radius: 2px;
+  font-size: 14px;
+  //transition: all .1s ease-in-out;
+  text-transform: capitalize;
+  line-height: 26px;
+  height: 26px;
+  display: inline-block;
+  margin-bottom: 4px;
+  //font-style: italic;
+}
+
+.main-tag:hover {
+  background-color: #999;
+}
+
+// input[type=checkbox] {
+//     visibility: hidden;
+// }
+
+
+// .tag input {
+//   cursor: pointer;
+//   position: absolute;
+//   width: 25px;
+//   height: 25px;
+//   // top: 0;
+//   // left: 0;
+//   background: #eee;
+//   border:1px solid #ddd;
+// }
+
+// .tag input {
+//   background-color: none;
+// }
+
+
+
+#open-button {
+  color: #a9a9a9;
 }
 
 #close-button {
-  margin-bottom:25px;
+  color: #a9a9a9;
+  margin-bottom: 36px;
 }
+
+li {
+  margin-bottom:10px;
+  letter-spacing: 1px;
+}
+
+#tag-search {
+  margin-top: 20px;
+  border-color: #a9a9a9;
+  border-width: 0.5px;
+  color: black;
+  background: none;
+  height: 30px;
+  width: 16%;
+}
+
+// .default {
+//   border-color: #e7e7e7;
+//   color: black;
+// }
+
+// .default:hover {
+//   background: #e7e7e7;
+// }
