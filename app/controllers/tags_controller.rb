@@ -1,19 +1,20 @@
 class TagsController < ApplicationController
 
   def index
-    #binding.pry
-    bm = current_user.bookmarks
-    #checks = params[:bookmark][:tag]
-    #@bookmarks = bm.collect {|bm| bm.tags.where(tag: params[:tag])}.flatten
-    # @bookmarks = bm.each do |bm|
-    #   bm.tags.where(tag: params[:tag])
-    # end
-    @bookmarks = Tag.find(params[:tag].first).bookmarks.where(user: current_user)
-    #@bookmarks = Tag.where(params[:tag]).bookmarks.where(user: current_user)
-    # @bookmarks = bookmarks.each do |bookmark|
-    #   bookmark.where(:tags == params[:bookmark][:tag])
-    # tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten
-    # @tags = tags.collect {|tag| tag.tag}.uniq  
+    output = []
+    tag_ids = params[:tag]
+
+    tag_ids.each do |tag_id|
+      tag = Tag.find(tag_id)
+      current_user.bookmarks.each do |bm|
+        if bm.tags.include?(tag)
+          output << bm
+          #binding.pry
+        end
+      end
+      @bookmarks = output
+    end
+
     @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq
 
     render 'bookmarks/index'
@@ -34,8 +35,3 @@ class TagsController < ApplicationController
   # end
 
 end
-# bm.each do |bm|
-#  if bm.tags.include?(params[:bookmark][:tag])
-#  puts bm
-#   end
-#  end
