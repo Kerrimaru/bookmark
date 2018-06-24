@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= form.label :tags %>
-    <%= form.select(:tags, options_from_collection_for_select(Tag.all, :id, :tag)) %>
+    <%= form.collection_select :tags, Tag.all, :id, :tag, {include_blank: true}, {multiple: true} %>
   </div>
 
   <div class="actions">
