@@ -6,7 +6,7 @@ class BookmarksController < ApplicationController
   # GET /bookmarks
   # GET /bookmarks.json
   def index
-    @bookmarks = current_user.bookmarks.search(params[:search])
+    @bookmarks = current_user.bookmarks.paginate(page: params[:page]).search(params[:search])
     @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq
   end
 
@@ -28,10 +28,15 @@ class BookmarksController < ApplicationController
   # POST /bookmarks.json
   def create
     @bookmark = current_user.bookmarks.new(bookmark_params)
+    tags = [params[:bookmark][:tags]]
+    tags.each do |tag_id|
+      tag = Tag.find(tag_id)
+      @bookmark.tags << tag 
+    end
 
     respond_to do |format|
       if @bookmark.save
-        format.html { redirect_to @bookmark, notice: 'Bookmark was successfully created.' }
+        format.html { redirect_to '/', notice: 'Bookmark was successfully created.' }
         format.json { render :show, status: :created, location: @bookmark }
       else
         format.html { render :new }

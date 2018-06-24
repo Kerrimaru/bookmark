@@ -11,12 +11,15 @@
 </p>
 
 <% if @bookmark.screenshot.attached? %>
-
   <p>
     <strong>Image:</strong>
     <br>
     <%= image_tag @bookmark.screenshot %>
   </p>
+<% end %>
+
+<% @bookmark.tags.each do |tag| %>
+  <%= tag.tag %>
 <% end %>
 
 <%= link_to 'Edit', edit_bookmark_path(@bookmark) %> |

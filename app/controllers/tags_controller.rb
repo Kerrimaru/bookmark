@@ -1,5 +1,7 @@
 class TagsController < ApplicationController
 
+  before_action :authenticate_user!
+
   def index
     output = []
     tag_ids = params[:tag]
@@ -9,7 +11,6 @@ class TagsController < ApplicationController
       current_user.bookmarks.each do |bm|
         if bm.tags.include?(tag)
           output << bm
-          #binding.pry
         end
       end
       @bookmarks = output
@@ -20,18 +21,27 @@ class TagsController < ApplicationController
     render 'bookmarks/index'
   end
 
-  # def create
-  #   @tag = Tag.new(params[:tag])
+  def new
+    @tag = Tag.new
+  end
 
-  #   respond_to do |format|
-  #     if @tag.save
-  #       format.html { redirect_to @tag, notice: 'tag was successfully created.' }
-  #       format.json { render :show, status: :created, location: @tag }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @tag.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def create
+    @tag = Tag.new(tag_params)
+    respond_to do |format|
+      if @tag.save
+        format.html { redirect_to '/', notice: 'tag was successfully created.' }
+        format.json { render :index, status: :created, location: @tag }
+      else
+        format.html { render :new }
+        format.json { render json: @tag.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  private
+
+    def tag_params
+      params.require(:tag).permit(:tag)
+    end
 
 end
