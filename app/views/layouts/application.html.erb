@@ -9,14 +9,20 @@
     <%= javascript_include_tag 'application' %>
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Quicksand" rel="stylesheet">
   </head>
-  <% if signed_in? %>
-    <body>
-  <% else %>
+  
+  <% if !signed_in? %>
     <body background="/assets/memories.jpg">
-  <% end %>
-    <%= render 'layouts/header' %>
+      <div class='login-container'>
+        <%= yield %>
+      </div>
+    </body>
+  </html>
    
-    <%= yield %>
+  <% else %>
+    <body>
+      <%= render 'layouts/header' %>
+      <%= yield %>
+    </body>
+  </html>
+<% end %>
 
-  </body>
-</html>
