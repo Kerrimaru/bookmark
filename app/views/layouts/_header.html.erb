@@ -1,10 +1,8 @@
 <header>
 <p id="notice"><%= notice %></p>
 <div id='logins'>
-  <% if user_signed_in? %>
     <p>
       <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
     </p>
-  <% end %>
 </div>
 </header>

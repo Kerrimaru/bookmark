@@ -39,8 +39,13 @@ a {
   text-decoration: none;
 }
 
+a:visited {
+    color: #000;
+}
+
 h2 {
   text-align: right;
+  font-size: 20px;
 }
 
 #logins {
@@ -61,4 +66,15 @@ h2 {
 .field input {
   margin-bottom: 15px;
   margin-top: 15px;
+}
+
+.actions input {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  border-color: #a9a9a9;
+  border-width: 0.5px;
+  color: black;
+  background: #ffffff;
+  height: 21px;
+  width: 16%;
 }
