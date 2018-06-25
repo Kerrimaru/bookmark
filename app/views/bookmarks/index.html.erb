@@ -20,7 +20,7 @@
     <%= submit_tag "Apply" %>
   <% end %>
   <h3>Select tags:</h3>
-  <%= form_tag(tags_path, method: :get) do %>
+  <%= form_tag(bookmarks_path, method: :get) do %>
     <ul>
       <% @tags.each do |tag| %>        
         <li class='tag'>
@@ -55,20 +55,8 @@
     </div>
   <% end %>
 </div>
-<div id='page'>
-  <%= will_paginate %>
 </div>
 
-<style>
-
-#page{
-  position: absolute;
-  bottom:0;
-  text-align: center;
-  margin:auto;
-}
-
-</style>
 
 <script type="text/javascript">
 

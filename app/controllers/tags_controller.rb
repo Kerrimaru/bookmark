@@ -3,22 +3,7 @@ class TagsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    output = []
-    tag_ids = params[:tag]
-
-    tag_ids.each do |tag_id|
-      tag = Tag.find(tag_id)
-      current_user.bookmarks.each do |bm|
-        if bm.tags.include?(tag)
-          output << bm
-        end
-      end
-      @bookmarks = output
-    end
-
-    @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq
-
-    render 'bookmarks/index'
+    @tags = Tag.all
   end
 
   def new

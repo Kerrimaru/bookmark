@@ -6,8 +6,33 @@ class BookmarksController < ApplicationController
   # GET /bookmarks
   # GET /bookmarks.json
   def index
-    @bookmarks = current_user.bookmarks.paginate(page: params[:page]).search(params[:search])
-    @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq
+
+    @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq      
+    if params[:created_at]
+      #binding.pry
+      if params[:created_at] == "oldest"
+        @bookmarks = current_user.bookmarks.order(created_at: :asc)
+      else @bookmarks = current_user.bookmarks.order(created_at: :desc)
+      end
+    elsif params[:tag]
+      output = []
+      tag_ids = params[:tag]
+      #binding.pry
+      tag_ids.each do |tag_id|
+        tag = Tag.find(tag_id)
+        current_user.bookmarks.each do |bm|
+          if bm.tags.include?(tag)
+            output << bm
+          end
+        end
+        @bookmarks = output.flatten.uniq
+      end
+
+    elsif params[:created_at]
+
+    else
+      @bookmarks = current_user.bookmarks.paginate(page: params[:page]).search(params[:search]).order(created_at: :desc)
+    end
   end
 
   # GET /bookmarks/1
