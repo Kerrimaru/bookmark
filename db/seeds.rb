@@ -115,7 +115,7 @@ end
 @ii.screenshot.attach(io: File.open('app/assets/images/screens/screen7.jpg'), filename: 'screen7.jpg')
 @hh.screenshot.attach(io: File.open('app/assets/images/screens/screen8.jpg'), filename: 'screen8.jpg')
 @gg.screenshot.attach(io: File.open('app/assets/images/screens/yum.jpg'), filename: 'yum.jpg')
-@b6.screenshot.attach(io: File.open('app/assets/images/screens/screen3.png'), filename: 'screen3.png'
+@b6.screenshot.attach(io: File.open('app/assets/images/screens/screen3.png'), filename: 'screen3.png')
 @b7.screenshot.attach(io: File.open('app/assets/images/screens/dolelol.png'), filename: 'dolelol.png')
 @b8.screenshot.attach(io: File.open('app/assets/images/screens/images.jfif'), filename: 'images.jfif')
 @b9.screenshot.attach(io: File.open('app/assets/images/screens/screen2.jfif'), filename: 'screen2.jfif')

@@ -8,9 +8,9 @@
     <div id='welcome'><h2>Welcome, <%= current_user.name %></h2></div>
 </div>
 
-<img src="/assets/right-arrow.png" id='open-button'>
+<i class="fas fa-caret-right fa-3x" id='open-button'></i>
 <div id='filters' style="display: none">
-  <img src="/assets/left-arrow.png" id='close-button'>
+  <i class="fas fa-caret-left fa-3x" id='close-button'></i>
   <h3>Order by:</h3>
   <%= form_tag(bookmarks_path, method: :get) do %>
     <%= radio_button_tag(:created_at, "newest") %>
