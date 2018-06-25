@@ -68,10 +68,10 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
+    docile (1.3.0)
     erubi (1.7.1)
     execjs (2.7.0)
     ffi (1.9.23)
-    filterrific (5.0.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (1.0.1)
@@ -79,6 +79,7 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    json (2.1.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -171,6 +172,17 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    shoulda (3.5.0)
+      shoulda-context (~> 1.0, >= 1.0.1)
+      shoulda-matchers (>= 1.4.1, < 3.0)
+    shoulda-context (1.2.2)
+    shoulda-matchers (2.8.0)
+      activesupport (>= 3.0.0)
+    simplecov (0.16.1)
+      docile (~> 1.1)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.2)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -212,7 +224,6 @@ DEPENDENCIES
   byebug
   capybara
   devise
-  filterrific
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   mini_magick (~> 4.8)
@@ -222,6 +233,8 @@ DEPENDENCIES
   rails (~> 5.2.0)
   rspec-rails
   sass-rails (~> 5.0)
+  shoulda (~> 3.5)
+  simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data

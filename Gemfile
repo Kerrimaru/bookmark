@@ -35,8 +35,10 @@ gem 'mini_magick', '~> 4.8'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group:test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', require: false
   gem 'capybara' 
+  gem 'simplecov'
+  gem 'shoulda', '~> 3.5'
 end
 
 group :development, :test do
