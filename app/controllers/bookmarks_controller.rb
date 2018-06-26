@@ -6,7 +6,7 @@ class BookmarksController < ApplicationController
   # GET /bookmarks
   # GET /bookmarks.json
   def index
-
+    #binding.pry
     @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq      
     if params[:created_at]
       #binding.pry
@@ -52,14 +52,25 @@ class BookmarksController < ApplicationController
   # POST /bookmarks
   # POST /bookmarks.json
   def create
-    @bookmark = current_user.bookmarks.new(bookmark_params)    
-    tags = params[:bookmark][:tags]
-    tags.each do |tag_id|
-      if tag_id != ''
-        tag = Tag.find(tag_id)
-        @bookmark.tags << tag
+    #binding.pry
+    @bookmark = current_user.bookmarks.new(bookmark_params)
+    if params[:bookmark][:tags]
+      tags = params[:bookmark][:tags].select do |tag|
+        !tag.id.empty?
+      end
+      tags.each do |tag_id|
+       tag = Tag.find(tag_id)
+          @bookmark.tags << tag
       end
     end
+    # @bookmark = current_user.bookmarks.new(bookmark_params)
+    # tags = params[:bookmark][:tags]
+    # tags.each do |tag_id|
+    #   if tag_id != ''
+    #     tag = Tag.find(tag_id)
+    #     @bookmark.tags << tag
+    #   end
+    # end
 
     respond_to do |format|
       if @bookmark.save
@@ -75,13 +86,22 @@ class BookmarksController < ApplicationController
   # PATCH/PUT /bookmarks/1
   # PATCH/PUT /bookmarks/1.json
   def update
-    tags = params[:bookmark][:tags]
-    tags.each do |tag_id|
-      if tag_id != ''
-        tag = Tag.find(tag_id)
-        @bookmark.tags << tag 
+    if params[:bookmark][:tags]
+      tags = params[:bookmark][:tags].select do |tag|
+        !tag.id.empty?
+      end
+      tags.each do |tag_id|
+       tag = Tag.find(tag_id)
+          @bookmark.tags << tag
       end
     end
+    # tags = params[:bookmark][:tags]
+    # tags.each do |tag_id|
+    #   if tag_id != ''
+    #     tag = Tag.find(tag_id)
+    #     @bookmark.tags << tag 
+    #   end
+    # end
     
     respond_to do |format|
       if @bookmark.update(bookmark_params)
