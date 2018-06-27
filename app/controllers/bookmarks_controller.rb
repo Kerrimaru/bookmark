@@ -51,13 +51,11 @@ class BookmarksController < ApplicationController
   # POST /bookmarks
   # POST /bookmarks.json
   def create
-    
     @bookmark = current_user.bookmarks.new(bookmark_params)
     if params[:bookmark][:tags]
       tags = params[:bookmark][:tags].select do |tag|
         !tag.empty?
       end
-      binding.pry
       tags.each do |tag_id|
        tag = Tag.find(tag_id)
           @bookmark.tags << tag

@@ -1,4 +1,7 @@
 <div id='index-head'>
+  <div id='logout'>
+    <p><%= link_to('Logout', destroy_user_session_path, method: :delete) %></p>
+  </div>
   <div id='title-search'>
   <%= form_tag(bookmarks_path, method: :get) do %>
     <%= text_field_tag(:search, params[:search], placeholder: 'Search by title...') %>
@@ -13,12 +16,17 @@
   <i class="fas fa-caret-left fa-3x" id='close-button'></i>
   <h3>Order by:</h3>
   <%= form_tag(bookmarks_path, method: :get) do %>
-    <%= radio_button_tag(:created_at, "newest") %>
-    <%= label_tag(:created_at, "Newest first") %><br>
-    <%= radio_button_tag(:created_at, "oldest") %>
-    <%= label_tag(:created_at, "Oldest first") %><br>
+    <div class='tag'>
+      <%= radio_button_tag(:created_at, "newest") %>
+      <%= label_tag(:created_at, "Newest first") %>
+    </div>
+    <div class='tag'>
+      <%= radio_button_tag(:created_at, "oldest") %>
+      <%= label_tag(:created_at, "Oldest first") %>
+    </div>
     <%= submit_tag "Apply" %>
   <% end %>
+
   <h3>Select tags:</h3>
   <%= form_tag(bookmarks_path, method: :get) do %>
     <ul>

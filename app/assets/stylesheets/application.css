@@ -27,14 +27,6 @@ body {
   background-size: cover;
 }
 
-/*header {
-  box-sizing: border-box;
-  display: inline;
-  height: 15vh;
-  background-color: black;
-}*/
-
-
 a {
   text-decoration: none;
 }
@@ -48,7 +40,7 @@ h2 {
   font-size: 20px;
 }
 
-#logins {
+#logout {
   text-align: right;
 }
 
@@ -78,3 +70,35 @@ h2 {
   height: 21px;
   width: 16%;
 }
+
+.new-edit-form {
+  display: flex;
+}
+
+.new-edit-container{
+  width:50vw;
+  padding: 40px;
+  min-height: 50vh;
+  margin: auto;
+  width: 50%;
+  background: rgba(204, 204, 204, 1);
+  text-align: center;
+}
+
+.new-edit-container .actions input {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-color: #a9a9a9;
+  border-width: 0.5px;
+  color: black;
+  background: #ffffff;
+  height: 25px;
+  width: 100%;
+}
+
+#bookmark_tags {
+  height: 250px;
+  width: 150px;
+}
+
+

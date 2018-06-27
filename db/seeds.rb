@@ -67,16 +67,15 @@ urls = [
 ]
 
 
-@b1 = Bookmark.create!(url: 'https://kerrimaru.github.io/#main',title: 'Really cool site!!',user: @bella)
+
+
+# Bookmark.all.each do |bookmark|
+#   #bookmark.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
+#   bookmark.screenshot.attach(io: File.open('app/assets/images/screens/defaultScreen.jpg'), filename: 'defaultScreen.jpg')
+# end
 @b2 = Bookmark.create!(url: 'http://blogpaws.com',title: 'blogpaws',user: @bella)
 @b3 = Bookmark.create!(url: 'http://www.allthingsdogblog.com',title: 'dogggs',user: @bella)
 @b5 = Bookmark.create!(url: 'http://www.bringingupbella.com',title: 'WARNING YOU SHOULD NOT SEE ME UNLESS YOU ARE VIK!!!!',user: @vik)
-
-Bookmark.all.each do |bookmark|
-  #bookmark.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
-  bookmark.screenshot.attach(io: File.open('app/assets/images/screens/defaultScreen.jpg'), filename: 'defaultScreen.jpg')
-end
-
 @b6 = Bookmark.create!(url: urls.sample, title: titles.sample, user: @bella)
 @b7 = Bookmark.create!(url: urls.sample, title: titles.sample, user: @bella)
 @b8 = Bookmark.create!(url: urls.sample, title: titles.sample, user: @bella)
@@ -89,13 +88,17 @@ end
 @cc = Bookmark.create!(url: urls.sample, title: titles.sample, user: @bella)
 @dd = Bookmark.create!(url: urls.sample, title: titles.sample, user: @bella)
 @ee = Bookmark.create!(url: urls.sample, title: titles.sample, user: @bella)
+@wegot = Bookmark.create!(url: 'https://www.wegotcoders.com/',title: '
+We Got Coders | Web Development Courses & Developers For Hire',user: @bella)
 @ff = Bookmark.create!(url: urls.sample, title: titles.sample, user: @bella)
 @kk = Bookmark.create!(url: urls.sample, title: titles.sample, user: @bella)
 @jj = Bookmark.create!(url: urls.sample, title: titles.sample, user: @bella)
 @ii = Bookmark.create!(url: urls.sample, title: titles.sample, user: @bella)
 @hh = Bookmark.create!(url: urls.sample, title: titles.sample, user: @bella)
 @gg = Bookmark.create!(url: urls.sample, title: titles.sample, user: @bella)
+@boxt = Bookmark.create!(url: 'https://boxt.co.uk/', title: 'Buy a Worcester Bosch boiler online with installation | BOXT.co.uk', user: @bella)
 @b4 = Bookmark.create!(url: 'http://www.bringingupbella.com',title: 'A dog named bella!',user: @bella)
+@kerrSite = Bookmark.create!(url: 'https://kerrimaru.github.io/#main',title: 'Really cool site!!',user: @bella)
 
 Bookmark.all.each do |bookmark|
     x = Tag.all.shuffle
@@ -123,33 +126,9 @@ end
 @b11.screenshot.attach(io: File.open('app/assets/images/screens/screen1.jpg'), filename: 'screen1.jpg')
 @b12.screenshot.attach(io: File.open('app/assets/images/screens/screen7.jpg'), filename: 'screen7.jpg')
 @b4.screenshot.attach(io: File.open('app/assets/images/screens/scree5.png'), filename: 'scree5.png')
-# 15.times do Bookmark.create!(
-#   url: urls.sample,
-#   title: titles.sample,
-#   user: @bella
-#   )
-# end
-
-
-
-# @b1.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
-# @b2.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
-# @b3.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
-# @b4.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
-# @b5.screenshot.attach(io: File.open('app/assets/images/tempScreen.png'), filename: 'tempScreen.png')
-
-
-
-
-
-
-
-
-
-
-# Bookmark.create!(
-#   user: @bella,
-#   url: 'https://kerrimaru.github.io/#main',
-#   screenshot: '/app/assets/images/tempScreen.png',
-#   title: 'cool site'
-# )
+@kerrSite.screenshot.attach(io: File.open('app/assets/images/screens/kerri.jfif'), filename: 'kerri.jfif')
+@wegot.screenshot.attach(io: File.open('app/assets/images/screens/coders.jfif'), filename: 'coders.jfif')
+@boxt.screenshot.attach(io: File.open('app/assets/images/screens/boxt.jfif'), filename: 'boxt.jfif')
+@b2.screenshot.attach(io: File.open('app/assets/images/screens/dolelol.png'), filename: 'dolelol.png')
+@b3.screenshot.attach(io: File.open('app/assets/images/screens/images.jfif'), filename: 'images.jfif')
+@b5.screenshot.attach(io: File.open('app/assets/images/screens/scree5.png'), filename: 'scree5.png')
