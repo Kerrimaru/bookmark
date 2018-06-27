@@ -52,22 +52,21 @@ RSpec.describe BookmarksController, type: :controller do
       bookmark = Bookmark.create! valid_attributes
       #binding.pry
       get :index, params: {user: valid_user}
-      expect(response).to be_successful?
-    end
+      expect(response).to be_success    end
   end
 
   describe "GET #show" do
     it "returns a success response" do
       bookmark = Bookmark.create! valid_attributes
       get :show, params: {id: bookmark.to_param}
-      expect(response).to be_successful?
+      expect(response).to be_success
     end
   end
 
   describe "GET #new" do
     it "returns a success response" do
       get :new, params: {}
-      expect(response).to be_successful?
+      expect(response).to be_success
     end
   end
 
@@ -75,7 +74,7 @@ RSpec.describe BookmarksController, type: :controller do
     it "returns a success response" do
       bookmark = Bookmark.create! valid_attributes
       get :edit, params: {id: bookmark.to_param}
-      expect(response).to be_successful?
+      expect(response).to be_success
     end
   end
 
@@ -96,7 +95,7 @@ RSpec.describe BookmarksController, type: :controller do
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: {bookmark: invalid_attributes}
-        expect(response).to be_successful?
+        expect(response).to be_success
       end
     end
   end
@@ -125,7 +124,7 @@ RSpec.describe BookmarksController, type: :controller do
       it "returns a success response (i.e. to display the 'edit' template)" do
         bookmark = Bookmark.create! valid_attributes
         put :update, params: {id: bookmark.to_param, bookmark: invalid_attributes}
-        expect(response).to be_successful?
+        expect(response).to be_success
       end
     end
   end

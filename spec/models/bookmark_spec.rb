@@ -23,8 +23,8 @@ RSpec.describe Bookmark, type: :model do
   before do
     @valid_user = User.create(name: "test", email: "test@test.com", password: "testing")
     @bookmarks = [
-      Bookmark.create(title: 'i love dogs', url: 'url.com', user: users(@valid_user)),
-      Bookmark.create(title: 'dogs are great', url: 'url.com', user: users(@valid_user))
+      Bookmark.create(title: 'i love dogs', url: 'url.com', user: @valid_user),
+      Bookmark.create(title: 'dogs are great', url: 'url.com', user: @valid_user)
     ]
   end
 
