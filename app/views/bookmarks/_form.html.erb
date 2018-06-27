@@ -1,4 +1,5 @@
-<%= form_with(model: bookmark, local: true) do |form| %>
+<div>
+  <%= form_with(model: bookmark, local: true) do |form| %>
   <% if bookmark.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(bookmark.errors.count, "error") %> prohibited this bookmark from being saved:</h2>
@@ -26,8 +27,8 @@
     <%= form.file_field :screenshot %>
   </div>
 
-  <div class="field">
-    <%= form.label :tags %>
+  <div class="field" id='add_tags'>
+    <%= form.label :tags %><br><br>
     <%= form.collection_select :tags, Tag.all, :id, :tag, {include_blank: true}, {multiple: true} %>
   </div>
 
@@ -35,3 +36,4 @@
     <%= form.submit %>
   </div>
 <% end %>
+</div>
