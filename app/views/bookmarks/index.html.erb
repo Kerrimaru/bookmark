@@ -42,26 +42,7 @@
 </div>
 
 <div id='bookmarks-list'>
-  <% @bookmarks.each do |bookmark| %>
-    <div class='bookmark'>
-      <% if bookmark.screenshot.attached? %>
-       <%= link_to bookmark.url do %>
-          <%= image_tag bookmark.screenshot, :class =>'screenshot'%>
-        <% end %>
-      <% end %>
-      <div class='bookmark-text'>
-        <%= link_to bookmark.url do %>
-          <h4><%= bookmark.title %></h4>
-        <% end %>
-        <% bookmark.tags.each do |tag| %>
-          <span class='main-tag'><%= tag.tag %></span>
-        <% end %>
-        <br><br>
-        <span id='edit'><%= link_to image_tag("/assets/edit2.png"), edit_bookmark_path(bookmark) %></span>
-        <span id='delete'><%= link_to image_tag("/assets/trash.png"), bookmark, method: :delete, data: { confirm: 'Are you sure?' } %></span>      
-      </div>        
-    </div>
-  <% end %>
+  <%= render 'list' %>
 </div>
 </div>
 
