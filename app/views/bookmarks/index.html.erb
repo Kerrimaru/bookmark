@@ -8,11 +8,19 @@
     <div id='welcome'><h2>Welcome, <%= current_user.name %></h2></div>
 </div>
 
-<img src="/assets/right-arrow.png" id='open-button'>
+<i class="fas fa-caret-right fa-3x" id='open-button'></i>
 <div id='filters' style="display: none">
-  <img src="/assets/left-arrow.png" id='close-button'> 
+  <i class="fas fa-caret-left fa-3x" id='close-button'></i>
+  <h3>Order by:</h3>
+  <%= form_tag(bookmarks_path, method: :get) do %>
+    <%= radio_button_tag(:created_at, "newest") %>
+    <%= label_tag(:created_at, "Newest first") %><br>
+    <%= radio_button_tag(:created_at, "oldest") %>
+    <%= label_tag(:created_at, "Oldest first") %><br>
+    <%= submit_tag "Apply" %>
+  <% end %>
   <h3>Select tags:</h3>
-  <%= form_tag(tags_path, method: :get) do %>
+  <%= form_tag(bookmarks_path, method: :get) do %>
     <ul>
       <% @tags.each do |tag| %>        
         <li class='tag'>
@@ -47,8 +55,14 @@
     </div>
   <% end %>
 </div>
+</div>
+
 
 <script type="text/javascript">
+
+// document.querySelector("input[type=checkbox]").addEventListener('click', function(){
+//   console.log(this);
+// })
   
 document.getElementById('open-button').addEventListener('click', function(){
   openNav();

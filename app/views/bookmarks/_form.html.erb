@@ -26,6 +26,11 @@
     <%= form.file_field :screenshot %>
   </div>
 
+  <div class="field">
+    <%= form.label :tags %>
+    <%= form.collection_select :tags, Tag.all, :id, :tag, {include_blank: true}, {multiple: true} %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

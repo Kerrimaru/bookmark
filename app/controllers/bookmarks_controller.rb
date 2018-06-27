@@ -6,18 +6,32 @@ class BookmarksController < ApplicationController
   # GET /bookmarks
   # GET /bookmarks.json
   def index
-    @bookmarks = current_user.bookmarks.search(params[:search])
-    #@bookmarks = Bookmark.search(params[:search])
-    # if params[:search]
-    #   @bookmarks = current_user.bookmarks.where(['title LIKE ?', "%#{params[:search]}%"])
-    # else
-    #   @bookmarks = current_user.bookmarks
-    # end
+    @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq      
+    if params[:created_at]
+      #binding.pry
+      if params[:created_at] == "oldest"
+        @bookmarks = current_user.bookmarks.order(created_at: :asc)
+      else @bookmarks = current_user.bookmarks.order(created_at: :desc)
+      end
+    elsif params[:tag]
+      output = []
+      tag_ids = params[:tag]
+      #binding.pry
+      tag_ids.each do |tag_id|
+        tag = Tag.find(tag_id)
+        current_user.bookmarks.each do |bm|
+          if bm.tags.include?(tag)
+            output << bm
+          end
+        end
+        @bookmarks = output.flatten.uniq
+      end
 
-    # tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten
-    # @tags = tags.collect {|tag| tag}.uniq
-    @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq
+    elsif params[:created_at]
 
+    else
+      @bookmarks = current_user.bookmarks.paginate(page: params[:page]).search(params[:search]).order(created_at: :desc)
+    end
   end
 
   # GET /bookmarks/1
@@ -37,11 +51,31 @@ class BookmarksController < ApplicationController
   # POST /bookmarks
   # POST /bookmarks.json
   def create
+    
     @bookmark = current_user.bookmarks.new(bookmark_params)
+    if params[:bookmark][:tags]
+      tags = params[:bookmark][:tags].select do |tag|
+        !tag.empty?
+      end
+      binding.pry
+      tags.each do |tag_id|
+       tag = Tag.find(tag_id)
+          @bookmark.tags << tag
+      end
+    end
+    # @bookmark = current_user.bookmarks.new(bookmark_params)
+    # tags = params[:bookmark][:tags]
+    # binding.pry
+    # tags.each do |tag_id|
+    #   if tag_id != ''
+    #     tag = Tag.find(tag_id)
+    #     @bookmark.tags << tag
+    #   end
+    # end
 
     respond_to do |format|
       if @bookmark.save
-        format.html { redirect_to @bookmark, notice: 'Bookmark was successfully created.' }
+        format.html { redirect_to '/', notice: 'Bookmark was successfully created.' }
         format.json { render :show, status: :created, location: @bookmark }
       else
         format.html { render :new }
@@ -53,6 +87,23 @@ class BookmarksController < ApplicationController
   # PATCH/PUT /bookmarks/1
   # PATCH/PUT /bookmarks/1.json
   def update
+    if params[:bookmark][:tags]
+      tags = params[:bookmark][:tags].select do |tag|
+        !tag.empty?
+      end
+      tags.each do |tag_id|
+       tag = Tag.find(tag_id)
+          @bookmark.tags << tag
+      end
+    end
+    # tags = params[:bookmark][:tags]
+    # tags.each do |tag_id|
+    #   if tag_id != ''
+    #     tag = Tag.find(tag_id)
+    #     @bookmark.tags << tag 
+    #   end
+    # end
+    
     respond_to do |format|
       if @bookmark.update(bookmark_params)
         format.html { redirect_to @bookmark, notice: 'Bookmark was successfully updated.' }

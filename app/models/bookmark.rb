@@ -8,20 +8,14 @@ class Bookmark < ApplicationRecord
 
   validates :url, presence: true
 
-  scope :recent, lambda {
-    where(:created_at => 1.week.ago..Time.now)
-  }
+  #default_scope lambda { order(created_at: :desc) }
+
+  scope :oldest, lambda { order(created_at: :asc)}
+
+  # scope :recent, lambda {
+  #   where(:created_at => 1.week.ago..Time.now)
+  # }
 
   scope :search, lambda {|search| where(['title LIKE ?', "%#{search}%"])}
-
-  #validates :screenshot, presence: true
-
-  # def self.search(search)
-  #   if search
-  #     where(['title LIKE ?', "%#{:search}%"])
-  #   else
-      
-  #   end
-  # end
 
 end
