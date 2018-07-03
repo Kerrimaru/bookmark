@@ -1,29 +1,22 @@
-<div id="filterrific_results">
-
-<table>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Country</th>
-      <th>Registered at</th>
-    </tr>
-  
-    <% bookmarks.each do |bookmark| %>
-      <tr>
-        <% if bookmark.screenshot.attached? %>
-          <td><p><%= link_to image_tag(bookmark.screenshot), bookmark.url  %></p></td>
+ 
+    <% @bookmarks.each do |bookmark| %>
+    <div class='bookmark'>
+      <% if bookmark.screenshot.attached? %>
+       <%= link_to bookmark.url do %>
+          <%= image_tag bookmark.screenshot, :class =>'screenshot'%>
         <% end %>
-        
-        <% if bookmark.title? %>
-         <td> <%= bookmark.title %></td>
+      <% end %>
+      <div class='bookmark-text'>
+        <%= link_to bookmark.url do %>
+          <h4><%= bookmark.title %></h4>
         <% end %>
-       
-       <td> <%= bookmark.created_at %></td>
-       </tr>
-    <% end %>
-   </table>
-</div>
-
-
-
+        <% bookmark.tags.each do |tag| %>
+          <span class='main-tag'><%= link_to(tag.tag, "#{bookmarks_path}?[tag][]=#{tag.id}") %></span>
+        <% end %>
+        <br><br>
+        <span id='edit'><%= link_to image_tag("/assets/edit2.png"), edit_bookmark_path(bookmark) %></span>
+        <span id='delete'><%= link_to image_tag("/assets/trash.png"), bookmark, method: :delete, data: { confirm: 'Are you sure?' } %></span>      
+      </div>        
+    </div>
+  <% end %>
 

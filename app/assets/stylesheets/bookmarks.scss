@@ -21,12 +21,21 @@
   text-align: center;
 }
 
+#tag-search h3{
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#index-head {
+  margin-bottom: 20px;
+}
+
 #bookmarks-list {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   position: absolute;
-  top: 180px;
+  top: 200px;
 }
 
 .bookmark {
