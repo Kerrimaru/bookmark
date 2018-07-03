@@ -8,9 +8,20 @@
     <%= button_tag "search", :name => nil %>
   <% end %>
   </div>
-    <div id='welcome'><h2>Welcome, <%= current_user.name %></h2></div>
-</div>
+  <div id='welcome'>
+    <h2>Welcome, <%= current_user.name %></h2>
+  </div>
+  <div id='tag-search'>
+    <% if params[:tag] %>
+      <% (params[:tag]).each do |tag_id| %>
+        <h3><%= Tag.find(tag_id).tag %></h3>
+      <% end %>
+    <% elsif params[:search] %>
+      <h3><%= params[:search] %></h3>
+    <% end %>
+  </div>
 
+</div>
 <i class="fas fa-caret-right fa-3x" id='open-button'></i>
 <div id='filters' style="display: none">
   <i class="fas fa-caret-left fa-3x" id='close-button'></i>
