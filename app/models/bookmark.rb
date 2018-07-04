@@ -8,6 +8,10 @@ class Bookmark < ApplicationRecord
 
   validates :url, presence: true
 
+  def thumbnail(image)
+    return self.screenshot.variant(resize: '225').processed
+  end
+
   #default_scope lambda { order(created_at: :desc) }
 
   scope :oldest, lambda { order(created_at: :asc)}

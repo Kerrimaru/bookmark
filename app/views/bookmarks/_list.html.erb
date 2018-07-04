@@ -3,7 +3,7 @@
     <div class='bookmark'>
       <% if bookmark.screenshot.attached? %>
        <%= link_to bookmark.url do %>
-          <%= image_tag bookmark.screenshot, :class =>'screenshot'%>
+          <%= image_tag bookmark.thumbnail(bookmark.screenshot), :class =>'screenshot'%>
         <% end %>
       <% end %>
       <div class='bookmark-text'>
