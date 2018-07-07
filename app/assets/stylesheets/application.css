@@ -15,11 +15,6 @@
  *= require default.css
  */
 
-#not_signed_in {
-  background-image: url("memories.jpg");
-  background-size: cover;
-}
-
 body {
   max-width: 100vw;
   min-height: 100vh;
