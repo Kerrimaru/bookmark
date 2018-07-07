@@ -14,9 +14,8 @@
           <span class='main-tag'><%= link_to(tag.tag, "#{bookmarks_path}?[tag][]=#{tag.id}") %></span>
         <% end %>
         <br><br>
-        <span id='edit'><%= link_to image_tag("/assets/edit2.png"), edit_bookmark_path(bookmark) %></span>
-        <span id='delete'><%= link_to image_tag("/assets/trash.png"), bookmark, method: :delete, data: { confirm: 'Are you sure?' } %></span>      
+        <%= link_to raw('<i class="far fa-edit" id="edit"></i>'), edit_bookmark_path(bookmark) %></span>
+        <%= link_to  raw('<i class="far fa-trash-alt" id="delete"></i>'), bookmark, method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>        
     </div>
   <% end %>
-
