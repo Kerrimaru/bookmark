@@ -2,12 +2,12 @@
     <% @bookmarks.each do |bookmark| %>
     <div class='bookmark'>
       <% if bookmark.screenshot.attached? %>
-       <%= link_to bookmark.url do %>
+       <%= link_to bookmark.url, target: :_blank do %>
           <%= image_tag bookmark.thumbnail(bookmark.screenshot), :class =>'screenshot'%>
         <% end %>
       <% end %>
       <div class='bookmark-text'>
-        <%= link_to bookmark.url do %>
+        <%= link_to bookmark.url, target: :_blank do %>
           <h4><%= bookmark.title %></h4>
         <% end %>
         <% bookmark.tags.each do |tag| %>
