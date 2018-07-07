@@ -13,11 +13,12 @@
   </div>
   <div id='tag-search'>
     <% if params[:tag] %>
+    <h3>Tags:</h3>
       <% (params[:tag]).each do |tag_id| %>
         <h3><%= Tag.find(tag_id).tag %></h3>
       <% end %>
     <% elsif params[:search] %>
-      <h3><%= params[:search] %></h3>
+      <h3>Title contains:</h3><h3><%= params[:search] %></h3>
     <% end %>
   </div>
 
@@ -53,16 +54,23 @@
 </div>
 
 <div id='bookmarks-list'>
-  <%= render 'list' %>
-</div>
-</div>
+  <% if current_user.sign_in_count == 1 && current_user.bookmarks.count == 0 %>
+    <% welcome = current_user.bookmarks.create!(url: ' https://en.wikipedia.org/wiki/Memoria', title: 'Memoria | Wikipedia') %>
+    <% welcome.screenshot.attach(io: File.open('app/assets/images/hall.jfif'), filename: 'hall.jfif') %>
 
+    <% extension = current_user.bookmarks.create!(url: 'http://kerri-virtualbo:3000/', title: 'Follow this link to download the extension') %>
+    <% extension.screenshot.attach(io: File.open('app/assets/images/bookmarks.jfif'), filename: 'bookmarks.jfif') %>
+    <% welcome = current_user.bookmarks.create!(url: 'http://kerri-virtualbo:3000/', title: 'Welcome') %>
+    <% welcome.screenshot.attach(io: File.open('app/assets/images/salve.jfif'), filename: 'salve.jfif') %>
+
+    <%= render 'list' %>
+  <% else %>
+    <%= render 'list' %>
+  <% end %>
+</div>
+</div>
 
 <script type="text/javascript">
-
-// document.querySelector("input[type=checkbox]").addEventListener('click', function(){
-//   console.log(this);
-// })
   
 document.getElementById('open-button').addEventListener('click', function(){
   openNav();

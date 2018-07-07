@@ -12,7 +12,7 @@
   </head>
   
   <% if !signed_in? %>
-    <body background="/assets/memories.jpg">
+  <body id='not_signed_in'>
       <div class='login-container'>
         <%= yield %>
       </div>
