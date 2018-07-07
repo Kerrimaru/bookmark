@@ -21,11 +21,13 @@
       <h3>Title contains:</h3><h3><%= params[:search] %></h3>
     <% end %>
   </div>
-
+  <i class="fas fa-caret-right fa-3x" id='open-button'></i>
+  <i class="fas fa-caret-left fa-3x" id='close-button' style="display: none"></i>
 </div>
-<i class="fas fa-caret-right fa-3x" id='open-button'></i>
-<div id='filters' style="display: none">
-  <i class="fas fa-caret-left fa-3x" id='close-button'></i>
+
+
+<aside id='filters' style="display: none">
+  
   <h3>Order by:</h3>
   <%= form_tag(bookmarks_path, method: :get) do %>
     <div class='tag'>
@@ -51,9 +53,9 @@
     </ul>
     <%= submit_tag "Search", id: "tag-search" %>
   <% end %>
-</div>
+</aside>
 
-<div id='bookmarks-list'>
+<section id='bookmarks-list'>
   <% if current_user.sign_in_count == 1 && current_user.bookmarks.count == 0 %>
     <% welcome = current_user.bookmarks.create!(url: ' https://en.wikipedia.org/wiki/Memoria', title: 'Memoria | Wikipedia') %>
     <% welcome.screenshot.attach(io: File.open('app/assets/images/hall.jfif'), filename: 'hall.jfif') %>
@@ -67,8 +69,7 @@
   <% else %>
     <%= render 'list' %>
   <% end %>
-</div>
-</div>
+</section>
 
 <script type="text/javascript">
   
@@ -80,16 +81,18 @@ document.getElementById('close-button').addEventListener('click', function(){
 })
 
 function openNav(){
-  document.getElementById("bookmarks-list").style.marginLeft = "16vw";
+  //document.getElementById("bookmarks-list").style.marginLeft = "18vw";
   document.getElementById("filters").style.width = "16vw";
-  document.getElementById("filters").style.display = "inline";
+  document.getElementById("filters").style.display = "inline-block";
   document.getElementById("open-button").style.display = 'none';
+  document.getElementById("close-button").style.display = 'inline-block';
 }
 
 function closeNav(){
   document.getElementById("bookmarks-list").style.marginLeft = "0%";
   document.getElementById("filters").style.display = "none";
-  document.getElementById("open-button").style.display = "inline";
+  document.getElementById("open-button").style.display = "inline-block";
+  document.getElementById("close-button").style.display = 'none';
 }
 
 </script>
