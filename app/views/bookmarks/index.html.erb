@@ -19,6 +19,11 @@
       <% end %>
     <% elsif params[:search] %>
       <h3>Title contains:</h3><h3><%= params[:search] %></h3>
+      <% if @bookmarks.count == 0 %>
+        <div id='emoticon'>
+          <%= render 'zeroResults' %>
+        </div>
+      <% end %>
     <% end %>
   </div>
   <i class="fas fa-caret-right fa-3x" id='open-button'></i>
