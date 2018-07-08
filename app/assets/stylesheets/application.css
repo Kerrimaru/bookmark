@@ -45,7 +45,6 @@ h2 {
 }
 
 .login-container {
-
   padding: 40px;
   min-height: 50vh;
   margin: auto;
@@ -68,7 +67,6 @@ h2 {
   color: black;
   background: #ffffff;
   height: 21px;
-  width: 16%;
 }
 
 .new-edit-form {
@@ -101,4 +99,12 @@ h2 {
   width: 150px;
 }
 
-
+@media only screen and (max-width: 450px){
+  #filters {
+    float: none;
+    width: 100vw;
+  }
+  .tag {
+    width: 80vw;
+  }
+}

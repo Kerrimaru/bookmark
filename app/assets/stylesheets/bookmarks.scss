@@ -16,7 +16,8 @@
 }
 
 #search {
-  width: 30vw;
+  min-width: 250px;
+  width: 35vw;
   height: 30px;
   text-align: center;
 }
@@ -34,13 +35,12 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  justify-content: center;
 }
 
 .bookmark {
-  // margin: auto;
   margin: 20px;
-  max-width: 225px;
-  //flex: 1;
+  width: 225px;
   opacity: 0.7;
   filter: alpha(opacity=70);
   h4 {
@@ -48,9 +48,6 @@
     margin: 7px 0;
     color: #353232;
   }
-  // .screenshot {
-  //   max-width: 225px;
-  // }
 }
 
 .bookmark:hover {
@@ -96,12 +93,14 @@
 
 #filters {
   float: left;
-}
-
-#filters h3 {
-  font-size: 23px;
-  margin-bottom: 25px;
-  display: inline;
+  min-width: 160px;
+  // display: inline-block;
+  h3 {
+    display: inline;
+  }
+  .tag {
+    min-width: 150px;
+  }
 }
 
 h3 {
@@ -156,3 +155,4 @@ li {
 #bookmark_title {
   width: 400px;
 }
+
