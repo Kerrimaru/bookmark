@@ -41,6 +41,11 @@ class BookmarksController < ApplicationController
 
   def create
     @bookmark = current_user.bookmarks.new(bookmark_params)
+    #@bookmark = current_user.bookmarks.new(bookmark_params)
+    if params[:bookmark][:auto]
+      @bookmark.screenshot.attach(io: File.open(params[:bookmark][:screenshot][:io]), filename: "screenshot.png" ) 
+      binding.pry
+    end
     if params[:bookmark][:tags]
       tags = params[:bookmark][:tags].select do |tag|
         !tag.empty?
@@ -53,6 +58,7 @@ class BookmarksController < ApplicationController
 
     respond_to do |format|
       if @bookmark.save
+        binding.pry
         format.html { redirect_to '/', notice: 'Bookmark was successfully created.' }
         format.json { render :show, status: :created, location: @bookmark }
       else
@@ -106,6 +112,6 @@ class BookmarksController < ApplicationController
     end
 
     def bookmark_params
-      params.require(:bookmark).permit(:url, :screenshot, :title)
+      params.require(:bookmark).permit(:url, :screenshot, :title, :tags )
     end
 end
