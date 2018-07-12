@@ -40,7 +40,24 @@ class BookmarksController < ApplicationController
   end
 
   def create
+     if params[:bookmark][:auto]
+      file = Tempfile.new('screenshot')
+      file.binmode
+      file.write(Base64.decode64(params[:bookmark][:screenshot][:io]))
+      file.close
+      upload = ActionDispatch::Http::UploadedFile.new({
+          filename: 'screenshot.jpg',
+          content_type: 'image/jpeg',
+          tempfile: file
+      })
+      params[:bookmark][:screenshot] = upload
+      #@bookmark.screenshot.attach(io: File.open(params[:bookmark][:screenshot][:io]), filename: "screenshot.png" )
+   #binding.pry
+    end
+
     @bookmark = current_user.bookmarks.new(bookmark_params)
+    #@bookmark = current_user.bookmarks.new(bookmark_params)
+
     if params[:bookmark][:tags]
       tags = params[:bookmark][:tags].select do |tag|
         !tag.empty?
@@ -106,6 +123,6 @@ class BookmarksController < ApplicationController
     end
 
     def bookmark_params
-      params.require(:bookmark).permit(:url, :screenshot, :title)
+      params.require(:bookmark).permit(:url, :screenshot, :title, :tags )
     end
 end
