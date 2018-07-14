@@ -4,14 +4,8 @@ class BookmarksController < ApplicationController
                 :authenticate_user!
   
   def index
-    @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq      
-    if params[:created_at]
-      #binding.pry
-      if params[:created_at] == "oldest"
-        @bookmarks = current_user.bookmarks.order(created_at: :asc)
-      else @bookmarks = current_user.bookmarks.order(created_at: :desc)
-      end
-    elsif params[:tag]
+    @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq
+    if params[:tag]
       output = []
       tag_ids = params[:tag]
       #binding.pry
@@ -22,7 +16,11 @@ class BookmarksController < ApplicationController
             output << bm
           end
         end
-        @bookmarks = output.flatten.uniq
+        if params[:created_at] == "oldest"
+          @bookmarks = output.flatten.uniq.sort_by{|bookmark| bookmark.created_at}
+        else
+          @bookmarks = output.flatten.uniq.sort_by{|bookmark| bookmark.created_at}.reverse
+        end
       end
     else
       @bookmarks = current_user.bookmarks.paginate(page: params[:page]).search(params[:search]).order(created_at: :desc)
@@ -51,8 +49,6 @@ class BookmarksController < ApplicationController
           tempfile: file
       })
       params[:bookmark][:screenshot] = upload
-      #@bookmark.screenshot.attach(io: File.open(params[:bookmark][:screenshot][:io]), filename: "screenshot.png" )
-   #binding.pry
     end
 
     @bookmark = current_user.bookmarks.new(bookmark_params)
