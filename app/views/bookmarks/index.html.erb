@@ -32,10 +32,9 @@
 
 
 <aside id='filters' style="display: none">
-  
-  <h3>Order by:</h3>
+  <h3>Sort by:</h3>
   <%= form_tag(bookmarks_path, method: :get) do %>
-    <div class='tag'>
+  <div class='tag'>
       <%= radio_button_tag(:created_at, "newest") %>
       <%= label_tag(:created_at, "Newest first") %>
     </div>
@@ -43,20 +42,20 @@
       <%= radio_button_tag(:created_at, "oldest") %>
       <%= label_tag(:created_at, "Oldest first") %>
     </div>
-    <%= submit_tag "Apply" %>
-  <% end %>
-
-  <h3>Select tags:</h3>
-  <%= form_tag(bookmarks_path, method: :get) do %>
+    <h3>Select tags:</h3>
     <ul>
       <% @tags.each do |tag| %>        
         <li class='tag'>
           <%= check_box_tag "[tag][]", tag.id %>
           <%= label_tag :tag, tag.tag.capitalize %>
         </li>
-      <% end %>      
+      <% end %>
     </ul>
-    <%= submit_tag "Search", id: "tag-search" %>
+    <%= submit_tag "Search", id: "tag-search-but" %>
+  <% end %>
+  <% if @tags.count == 0 %>
+    <br>
+    <p>You have not yet added any tags. Edit a bookmark to add some</p>
   <% end %>
 </aside>
 
@@ -65,15 +64,10 @@
     <% welcome = current_user.bookmarks.create!(url: ' https://en.wikipedia.org/wiki/Memoria', title: 'Memoria | Wikipedia') %>
     <% welcome.screenshot.attach(io: File.open('app/assets/images/hall.jfif'), filename: 'hall.jfif') %>
 
-    <% extension = current_user.bookmarks.create!(url: 'http://kerri-virtualbo:3000/', title: 'Follow this link to download the extension') %>
+    <% extension = current_user.bookmarks.create!(url: 'https://chrome.google.com/webstore/detail/memoria-bookmark-app-exte/llfpopfhjbghfhplkjcmlfbjicajmeek?hl=en', title: 'Memoria works best with the Memoria Extension | Follow this link to download') %>
     <% extension.screenshot.attach(io: File.open('app/assets/images/bookmarks.jfif'), filename: 'bookmarks.jfif') %>
-    <% welcome = current_user.bookmarks.create!(url: 'http://kerri-virtualbo:3000/', title: 'Welcome') %>
-    <% welcome.screenshot.attach(io: File.open('app/assets/images/salve.jfif'), filename: 'salve.jfif') %>
-
-    <%= render 'list' %>
-  <% else %>
-    <%= render 'list' %>
   <% end %>
+  <%= render 'list' %>
 </section>
 
 <script type="text/javascript">
