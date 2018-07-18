@@ -9,9 +9,8 @@ class BookmarksController < ApplicationController
       output = []
       tag_ids = params[:tag]
       tag_ids.each do |tag_id|
-        tag = Tag.find(tag_id)
         current_user.bookmarks.each do |bm|
-          if bm.tags.include?(tag)
+          if bm.tag_ids.include?(tag_id.to_i)
             output << bm
           end
         end
