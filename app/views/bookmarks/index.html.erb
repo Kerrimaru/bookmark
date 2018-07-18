@@ -35,7 +35,7 @@
   <h3>Sort by:</h3>
   <%= form_tag(bookmarks_path, method: :get) do %>
   <div class='tag'>
-      <%= radio_button_tag(:created_at, "newest") %>
+      <%= radio_button_tag(:created_at, "newest", checked = true) %>
       <%= label_tag(:created_at, "Newest first") %>
     </div>
     <div class='tag'>

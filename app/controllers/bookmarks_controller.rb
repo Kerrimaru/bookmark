@@ -8,7 +8,6 @@ class BookmarksController < ApplicationController
     if params[:tag]
       output = []
       tag_ids = params[:tag]
-      #binding.pry
       tag_ids.each do |tag_id|
         tag = Tag.find(tag_id)
         current_user.bookmarks.each do |bm|
