@@ -5,23 +5,25 @@ class BookmarksController < ApplicationController
   
   def index
     @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq
+    @bookmarks = current_user.bookmarks.newest
     if params[:tag]
       output = []
       tag_ids = params[:tag]
       tag_ids.each do |tag_id|
-        current_user.bookmarks.each do |bm|
+        @bookmarks.each do |bm|
           if bm.tag_ids.include?(tag_id.to_i)
             output << bm
           end
         end
+        @bookmarks = output.flatten.uniq
         if params[:created_at] == "oldest"
-          @bookmarks = output.flatten.uniq.sort_by{|bookmark| bookmark.created_at}
-        else
-          @bookmarks = output.flatten.uniq.sort_by{|bookmark| bookmark.created_at}.reverse
+          @bookmarks = output.sort_by{|bookmark| bookmark.created_at}
         end
       end
-    else
-      @bookmarks = current_user.bookmarks.paginate(page: params[:page]).search(params[:search]).order(created_at: :desc)
+    end
+
+    if params[:search]
+      @bookmarks = @bookmarks.paginate(page: params[:page]).search(params[:search]).newest
     end
   end
 

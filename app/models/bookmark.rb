@@ -16,6 +16,8 @@ class Bookmark < ApplicationRecord
 
   scope :oldest, lambda { order(created_at: :asc)}
 
+  scope :newest, lambda { order(created_at: :desc)}
+
   # scope :recent, lambda {
   #   where(:created_at => 1.week.ago..Time.now)
   # }
