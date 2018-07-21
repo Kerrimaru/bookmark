@@ -4,21 +4,32 @@ class BookmarksController < ApplicationController
                 :authenticate_user!
   
   def index
-    @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq
-    @bookmarks = current_user.bookmarks.newest
+    @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq.sort_by &:tag
+    @bookmarks = current_user.bookmarks.paginate(page: params[:page]).newest
+
+    # if params[:tag]
+    #   output = []
+    #   tag_ids = params[:tag].map {|tag| tag.to_i}
+    #   tag_ids.each do |tag_id|
+    #     @bookmarks.each do |bm|
+    #       if bm.tag_ids.include?(tag_id)
+    #         output << bm
+    #       end
+    #     end
+    #     @bookmarks = output.flatten.uniq
+    #     if params[:created_at] == "oldest"
+    #       @bookmarks = output.sort_by{|bookmark| bookmark.created_at}
+    #     end
+    #   end
+    # end
+
     if params[:tag]
-      output = []
-      tag_ids = params[:tag]
-      tag_ids.each do |tag_id|
-        @bookmarks.each do |bm|
-          if bm.tag_ids.include?(tag_id.to_i)
-            output << bm
-          end
-        end
-        @bookmarks = output.flatten.uniq
-        if params[:created_at] == "oldest"
-          @bookmarks = output.sort_by{|bookmark| bookmark.created_at}
-        end
+      tag_ids = params[:tag].map {|tag| tag.to_i}
+      @bookmarks = @bookmarks.select do |bm|
+        (tag_ids - bm.tags.ids).empty?
+      end
+      if params[:created_at] == "oldest"
+       @bookmarks = @bookmarks.sort_by{|bookmark| bookmark.created_at}
       end
     end
 
@@ -52,7 +63,6 @@ class BookmarksController < ApplicationController
     end
 
     @bookmark = current_user.bookmarks.new(bookmark_params)
-    #@bookmark = current_user.bookmarks.new(bookmark_params)
 
     if params[:bookmark][:tags]
       tags = params[:bookmark][:tags].select do |tag|
@@ -85,14 +95,7 @@ class BookmarksController < ApplicationController
           @bookmark.tags << tag
       end
     end
-    # tags = params[:bookmark][:tags]
-    # tags.each do |tag_id|
-    #   if tag_id != ''
-    #     tag = Tag.find(tag_id)
-    #     @bookmark.tags << tag 
-    #   end
-    # end
-    
+
     respond_to do |format|
       if @bookmark.update(bookmark_params)
         format.html { redirect_to @bookmark, notice: 'Bookmark was successfully updated.' }

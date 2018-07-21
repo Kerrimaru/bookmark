@@ -18,9 +18,11 @@ class Bookmark < ApplicationRecord
 
   scope :newest, lambda { order(created_at: :desc)}
 
-  # scope :recent, lambda {
-  #   where(:created_at => 1.week.ago..Time.now)
-  # }
+  scope :title, lambda { order(title: :asc)}
+
+  scope :recent, lambda {
+    where(:created_at => 1.week.ago..Time.now)
+  }
 
   scope :search, lambda {|search| where(['title LIKE ?', "%#{search}%"])}
 
