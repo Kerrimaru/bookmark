@@ -29,7 +29,11 @@
 
   <div class="field" id='add_tags'>
     <%= form.label :tags %><br><br>
-    <%= form.collection_select :tags, Tag.all, :id, :tag, {include_blank: true}, {multiple: true} %>
+    <% bookmark.tags.each do |bm| %>
+     <span class='main-tag'><%= bm.tag %></span>
+     <% end %>
+     <br>
+    <%= form.collection_select(:tags, (Tag.all.order(:tag) - bookmark.tags), :id, :tag, {include_blank: true}, {multiple: true, prompt: true}) %>
   </div>
 
   <div class="actions">

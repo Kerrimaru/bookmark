@@ -12,8 +12,6 @@ class Bookmark < ApplicationRecord
     return self.screenshot.variant(resize: '225').processed
   end
 
-  #default_scope lambda { order(created_at: :desc) }
-
   scope :oldest, lambda { order(created_at: :asc)}
 
   scope :newest, lambda { order(created_at: :desc)}
@@ -24,6 +22,10 @@ class Bookmark < ApplicationRecord
     where(:created_at => 1.week.ago..Time.now)
   }
 
-  scope :search, lambda {|search| where(['title LIKE ?', "%#{search}%"])}
+  scope :unrecent, lambda {
+    where(:created_at => 2.week.ago)
+  }
+
+  scope :search, lambda {|search| where(["LOWER(title) LIKE ?", "%#{search.downcase}%"])}
 
 end
