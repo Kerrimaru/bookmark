@@ -29,11 +29,145 @@
 
   <div class="field" id='add_tags'>
     <%= form.label :tags %><br><br>
-    <%= form.collection_select :tags, Tag.all, :id, :tag, {include_blank: true}, {multiple: true} %>
+    <% Tag.all.order(:tag).each do |tag| %>
+      <%if bookmark.tags.include?(tag) %>
+        <span class='main-tag selected'>
+          <%= check_box_tag("[tag][]", tag.id, checked = true) %>
+          <%= form.label(:tag, tag.tag.capitalize) %>
+        </span>
+      <% else %>
+        <span class='main-tag'>
+          <%= check_box_tag("[tag][]", tag.id) %>
+          <%= form.label(:tag, tag.tag.capitalize) %>
+        </span>
+      <% end %>
+  <% end %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
-<% end %>
+  <% end %>
+
+  <input id='newTag'> </input>
+  <button id='newButt'>Create New Tag</button>
 </div>
+
+<script>
+
+var addListener = () => {
+  var tags = document.querySelectorAll('.main-tag')
+  for(let i = 0; i < tags.length; i++) {
+    tags[i].addEventListener('click', function(){
+      if (this.children[0].checked){
+        this.children[0].checked = false
+      } else {
+        this.children[0].checked = true
+      };
+      console.log('yo');
+      this.classList.toggle('selected');
+    });
+  };
+}
+
+var addNewListener = (el) => {
+  el.addEventListener('click', function(){
+    console.log(this);
+    this.classList.toggle('selected');
+    if (this.children[0].checked){
+      this.children[0].checked = false
+    } else {
+        this.children[0].checked = true
+    };
+  });
+}
+
+document.getElementById('newButt').addEventListener('click', function(){
+  console.log('clik');
+  var tagField = document.getElementById('newTag');
+  tagValue = tagField.value.trim();
+  createTag(tagValue);
+  tagField.value = "";
+})
+
+
+// var getTags = () => {
+//   var xhr = new XMLHttpRequest();
+//   xhr.open('GET', 'http://kerri-virtualbo:3000/tags.json');
+//   xhr.onreadystatechange = function(){
+//       if (xhr.readyState === 4){
+//         console.log({tags: JSON.parse(xhr.response)});
+//       }
+//     }
+//     xhr.send();
+// }
+
+
+//   document.querySelector('.main-tag').addEventListener('click', function(){
+//     console.log(this);
+//     this.classList.toggle('selected');
+//   })
+// }
+
+var createTag = (data) => {
+  var sendData =  {"tag": {"tag":data}};
+  console.log(JSON.stringify(sendData));
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'http://kerri-virtualbo:3000/tags.json');
+  xhr.withCredentials = true;
+  xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify(sendData));
+  //addTag(sendData);
+  appendNewTag();
+}
+
+var appendNewTag = () => {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://kerri-virtualbo:3000/tags.json');
+  xhr.onreadystatechange = function(){
+      if (xhr.readyState === 4){
+        //console.log(JSON.parse(xhr.response));
+        //console.log(JSON.parse(xhr.response)[JSON.parse(xhr.response).length -1] );
+        var newTag = JSON.parse(xhr.response)[JSON.parse(xhr.response).length -1];
+        console.log(newTag);
+        var newTagEl = document.createElement('span');
+        newTagEl.classList = 'main-tag selected';
+        var input = document.createElement('input');
+        input.type="checkbox";
+        input.name="[tag][]";
+        input.id="_tag_";
+        input.value = newTag.id;
+        newTagEl.appendChild(input);
+
+        var label = document.createElement('label');
+        label.for = "bookmark_tag";
+        label.innerHTML = newTag.tag;
+        newTagEl.appendChild(label);
+
+        newTag.innerHTML = tagValue;
+
+        document.getElementById('add_tags').appendChild(newTagEl);
+        addNewListener(newTagEl);
+      }
+    }
+    xhr.send();
+}
+
+var addTag = (data) => {
+  console.log(JSON.stringify(data));
+  console.log(`${location.href.slice(0, -5)}.json`);
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', `${location.href.slice(0, -5)}.json`);
+  xhr.withCredentials = true;
+  xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify(data));
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+    // getTags();
+    addListener();
+})
+
+</script>

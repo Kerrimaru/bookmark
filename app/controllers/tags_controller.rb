@@ -7,14 +7,13 @@ class TagsController < ApplicationController
   end
 
   def new
-    @tag = Tag.new
   end
 
   def create
     @tag = Tag.new(tag_params)
     respond_to do |format|
       if @tag.save
-        format.html { redirect_to '/', notice: 'tag was successfully created.' }
+        format.html { redirect_to "/bookmarks", notice: 'tag was successfully created.' }
         format.json { render :index, status: :created, location: @tag }
       else
         format.html { render :new }
