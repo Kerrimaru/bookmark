@@ -64,7 +64,7 @@
   transition: all .1s ease-in-out;
   text-transform: capitalize;
   line-height: 26px;
-  height: 26px;
+  // height: 26px;
   display: inline-block;
   margin-bottom: 4px;
 }
@@ -164,4 +164,12 @@ li {
 
 #add_tags option{
   text-transform: capitalize;
+}
+
+#add_tags .selected{
+  background: #83d0f2;;
+}
+
+#add_tags input{
+  display: none;
 }

@@ -26,7 +26,7 @@ class BookmarksController < ApplicationController
 
   def new
     @bookmark = Bookmark.new
-    @tag = Tag.new
+    #@bookmark.tags.build
   end
 
   def edit
@@ -50,11 +50,22 @@ class BookmarksController < ApplicationController
 
     if params[:bookmark][:tags]
       tags = params[:bookmark][:tags].select do |tag|
-        !tag.empty?
+        !tag.empty? && !@bookmark.tags.ids.include?(tag)
       end
       tags.each do |tag_id|
        tag = Tag.find(tag_id)
           @bookmark.tags << tag
+      end
+    end
+
+    if params[:tag]
+      tag_ids = params[:tag].map {|tag| tag.to_i}
+      tags = tag_ids.select do |tag|
+        !@bookmark.tags.ids.include?(tag)
+      end
+      tags.each do |id|
+        tag = Tag.find(id)
+        @bookmark.tags << tag
       end
     end
 
@@ -70,13 +81,14 @@ class BookmarksController < ApplicationController
   end
 
   def update
-    if params[:bookmark][:tags]
-      tags = params[:bookmark][:tags].select do |tag|
-        !tag.empty?
+    if params[:tag]
+      tag_ids = params[:tag].map {|tag| tag.to_i}
+      tags = tag_ids.select do |tag|
+        !@bookmark.tags.ids.include?(tag)
       end
-      tags.each do |tag_id|
-       tag = Tag.find(tag_id)
-          @bookmark.tags << tag
+      tags.each do |id|
+        tag = Tag.find(id)
+        @bookmark.tags << tag
       end
     end
 
@@ -106,6 +118,6 @@ class BookmarksController < ApplicationController
     end
 
     def bookmark_params
-      params.require(:bookmark).permit(:url, :screenshot, :title, :tags )
+      params.require(:bookmark).permit(:url, :screenshot, :title )
     end
 end
