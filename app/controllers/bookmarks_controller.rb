@@ -26,7 +26,6 @@ class BookmarksController < ApplicationController
 
   def new
     @bookmark = Bookmark.new
-    #@bookmark.tags.build
   end
 
   def edit
@@ -81,12 +80,10 @@ class BookmarksController < ApplicationController
   end
 
   def update
+    @bookmark.tags = []
     if params[:tag]
       tag_ids = params[:tag].map {|tag| tag.to_i}
-      tags = tag_ids.select do |tag|
-        !@bookmark.tags.ids.include?(tag)
-      end
-      tags.each do |id|
+      tag_ids.each do |id|
         tag = Tag.find(id)
         @bookmark.tags << tag
       end
