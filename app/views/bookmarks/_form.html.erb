@@ -112,14 +112,11 @@ var appendTag = (data) => {
   input.id="_tag_";
   input.value = data.id;
   newTagEl.appendChild(input);
-
   var label = document.createElement('label');
-  label.forHTML = "bookmark_tag";
+  label.htmlFor = "bookmark_tag";
   label.innerHTML = data.tag;
   newTagEl.appendChild(label);
-
   newTag.innerHTML = tagValue;
-
   document.getElementById('add_tags').appendChild(newTagEl);
   addNewListener(newTagEl);
 }
