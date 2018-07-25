@@ -78,12 +78,16 @@ var createTag = (data) => {
   console.log(JSON.stringify(sendData));
   var xhr = new XMLHttpRequest();
   xhr.open('POST', 'http://kerri-virtualbo:3000/tags.json');
-  xhr.withCredentials = true;
-  xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
-  xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.withCredentials = true;
+    xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
+    xhr.setRequestHeader('Content-Type', 'application/json');    
+    xhr.onreadystatechange = function(){
+      if (xhr.readyState === 4){
+        //addTag(sendData);
+        getLastTag();
+      }
+    }
   xhr.send(JSON.stringify(sendData));
-  //addTag(sendData);
-  getLastTag();
 }
 
 var getLastTag = () => {
@@ -110,7 +114,7 @@ var appendTag = (data) => {
   newTagEl.appendChild(input);
 
   var label = document.createElement('label');
-  label.for = "bookmark_tag";
+  label.forHTML = "bookmark_tag";
   label.innerHTML = data.tag;
   newTagEl.appendChild(label);
 
