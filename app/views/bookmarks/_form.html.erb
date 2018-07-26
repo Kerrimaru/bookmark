@@ -57,12 +57,9 @@
 
 var addNewListener = (el) => {
   el.addEventListener('click', function(){
+    inputEl = this.querySelector('input');
     this.classList.toggle('selected');
-    if (this.children[0].checked){
-      this.children[0].checked = false
-    } else {
-      this.children[0].checked = true
-    };
+    inputEl.checked = !inputEl.checked
   });
 }
 
@@ -125,30 +122,7 @@ window.addEventListener('DOMContentLoaded', function() {
   var tags = document.querySelectorAll('.main-tag')
   for(let i = 0; i < tags.length; i++) {
     addNewListener( tags[i]);
-  }
+  };
 })
-
-// var addTag = (data) => {
-//   console.log(JSON.stringify(data));
-//   console.log(`${location.href.slice(0, -5)}.json`);
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('POST', `${location.href.slice(0, -5)}.json`);
-//   xhr.withCredentials = true;
-//   xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
-//   xhr.setRequestHeader('Content-Type', 'application/json');
-//   xhr.send(JSON.stringify(data));
-// }
-
-
-// var getTags = () => {
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('GET', 'http://kerri-virtualbo:3000/tags.json');
-//   xhr.onreadystatechange = function(){
-//       if (xhr.readyState === 4){
-//         console.log({tags: JSON.parse(xhr.response)});
-//       }
-//     }
-//     xhr.send();
-// }
 
 </script>
