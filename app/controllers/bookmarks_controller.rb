@@ -80,13 +80,19 @@ class BookmarksController < ApplicationController
   end
 
   def update
-    @bookmark.tags = []
-    if params[:tag]
+    if params[:newTag]
+      @bookmark.tags << Tag.find(params[:newTag][:id])
+      bm = Bookmark.find(params[:id])
+      params[:bookmark] = {url: bm.url, title: bm.title}
+    elsif params[:tag]
+      @bookmark.tags = []
       tag_ids = params[:tag].map {|tag| tag.to_i}
       tag_ids.each do |id|
         tag = Tag.find(id)
         @bookmark.tags << tag
       end
+    else      
+      @bookmark.tags = []
     end
 
     respond_to do |format|
