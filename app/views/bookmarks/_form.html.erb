@@ -57,12 +57,9 @@
 
 var addNewListener = (el) => {
   el.addEventListener('click', function(){
+    inputEl = this.querySelector('input');
     this.classList.toggle('selected');
-    if (this.children[0].checked){
-      this.children[0].checked = false
-    } else {
-      this.children[0].checked = true
-    };
+    inputEl.checked = !inputEl.checked
   });
 }
 
@@ -78,12 +75,16 @@ var createTag = (data) => {
   console.log(JSON.stringify(sendData));
   var xhr = new XMLHttpRequest();
   xhr.open('POST', 'https://hidden-bastion-43962.herokuapp.com/tags.json');
-  xhr.withCredentials = true;
-  xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
-  xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.withCredentials = true;
+    xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
+    xhr.setRequestHeader('Content-Type', 'application/json');    
+    xhr.onreadystatechange = function(){
+      if (xhr.readyState === 4){
+        //addTag(sendData);
+        getLastTag();
+      }
+    }
   xhr.send(JSON.stringify(sendData));
-  //addTag(sendData);
-  getLastTag();
 }
 
 var getLastTag = () => {
@@ -93,61 +94,52 @@ var getLastTag = () => {
     if (xhr.readyState === 4){
       var response = JSON.parse(xhr.response);
       var newTag = response[response.length -1];
-      appendTag(newTag);
+      //appendTag(newTag);
+      updateBookmark(newTag);
     }
   }
   xhr.send();
 }
 
-var appendTag = (data) => {
-  var newTagEl = document.createElement('span');
-  newTagEl.classList = 'main-tag selected';
-  var input = document.createElement('input');
-  input.type="checkbox";
-  input.name="[tag][]";
-  input.id="_tag_";
-  input.value = data.id;
-  newTagEl.appendChild(input);
-
-  var label = document.createElement('label');
-  label.for = "bookmark_tag";
-  label.innerHTML = data.tag;
-  newTagEl.appendChild(label);
-
-  newTag.innerHTML = tagValue;
-
-  document.getElementById('add_tags').appendChild(newTagEl);
-  addNewListener(newTagEl);
+var updateBookmark = (data) => {
+  url = this.location.href.slice(0, -5) + ".json"
+  console.log(this);
+  var sendData = {"newTag":{"id":data.id, "tag":data.tag}};
+  console.log(JSON.stringify(sendData));
+  var xhr = new XMLHttpRequest();
+  xhr.open('PUT', url);
+    xhr.withCredentials = true;
+    xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function(){
+      location.reload();
+    }
+  xhr.send(JSON.stringify(sendData));
 }
+
+// var appendTag = (data) => {
+//   var newTagEl = document.createElement('span');
+//   newTagEl.classList = 'main-tag selected';
+//   var input = document.createElement('input');
+//   input.type="checkbox";
+//   input.name="[tag][]";
+//   input.id="_tag_";
+//   input.value = data.id;
+//   newTagEl.appendChild(input);
+//   var label = document.createElement('label');
+//   label.htmlFor = "bookmark_tag";
+//   label.innerHTML = data.tag;
+//   newTagEl.appendChild(label);
+//   newTag.innerHTML = tagValue;
+//   document.getElementById('add_tags').appendChild(newTagEl);
+//   addNewListener(newTagEl);
+// }
 
 window.addEventListener('DOMContentLoaded', function() {
   var tags = document.querySelectorAll('.main-tag')
   for(let i = 0; i < tags.length; i++) {
     addNewListener( tags[i]);
-  }
+  };
 })
-
-// var addTag = (data) => {
-//   console.log(JSON.stringify(data));
-//   console.log(`${location.href.slice(0, -5)}.json`);
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('POST', `${location.href.slice(0, -5)}.json`);
-//   xhr.withCredentials = true;
-//   xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
-//   xhr.setRequestHeader('Content-Type', 'application/json');
-//   xhr.send(JSON.stringify(data));
-// }
-
-
-// var getTags = () => {
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('GET', 'http://kerri-virtualbo:3000/tags.json');
-//   xhr.onreadystatechange = function(){
-//       if (xhr.readyState === 4){
-//         console.log({tags: JSON.parse(xhr.response)});
-//       }
-//     }
-//     xhr.send();
-// }
 
 </script>
