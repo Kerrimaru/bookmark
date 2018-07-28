@@ -1,5 +1,5 @@
 class BookmarksController < ApplicationController
-  #skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
   before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
                 :authenticate_user!
   
