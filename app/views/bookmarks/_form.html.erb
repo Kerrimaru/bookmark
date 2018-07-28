@@ -70,52 +70,124 @@ document.getElementById('newButt').addEventListener('click', function(){
   tagField.value = "";
 })
 
+
+
 var createTag = (data) => {
   var sendData =  {"tag": {"tag":data}};
-  console.log(JSON.stringify(sendData));
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'https://hidden-bastion-43962.herokuapp.com/tags.json');
-    xhr.withCredentials = true;
-    xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
-    xhr.setRequestHeader('Content-Type', 'application/json');    
-    xhr.onreadystatechange = function(){
-      if (xhr.readyState === 4){
-        //addTag(sendData);
-        getLastTag();
-      }
-    }
-  xhr.send(JSON.stringify(sendData));
+  fetch('https://hidden-bastion-43962.herokuapp.com/tags.json', {
+  //fetch('http://kerri-virtualbo:3000/tags.json', {
+    method: 'post',
+    body: JSON.stringify(sendData),
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': Rails.csrfToken()
+    },
+    credentials: 'same-origin'
+  }).then(function(response) {
+    return response.json();
+  }).then(function(data) {
+    console.log(data);
+    getLastTag();
+  });
 }
 
+
+
+
+// var createTag = (data) => {
+//   var sendData =  {"tag": {"tag":data}};
+//   console.log(JSON.stringify(sendData));
+//   var xhr = new XMLHttpRequest();
+//   //xhr.open('POST', 'https://hidden-bastion-43962.herokuapp.com/tags.json');
+//   xhr.open('POST', 'http://kerri-virtualbo:3000/tags.json');
+//     xhr.withCredentials = true;
+//     xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
+//     xhr.setRequestHeader('Content-Type', 'application/json');    
+//     xhr.onreadystatechange = function(){
+//       if (xhr.readyState === 4){
+//         //addTag(sendData);
+//         getLastTag();
+//       }
+//     }
+//   xhr.send(JSON.stringify(sendData));
+// }
+
+// var getLastTag = () => {
+//   var xhr = new XMLHttpRequest();
+//   //xhr.open('GET', 'https://hidden-bastion-43962.herokuapp.com/tags.json');
+//   xhr.open('GET', 'http://kerri-virtualbo:3000/tags.json');
+//   xhr.setRequestHeader('Content-Type', 'application/json');
+//   xhr.onreadystatechange = function(){
+//     if (xhr.readyState === 4){
+//       var response = JSON.parse(xhr.response);
+//       var newTag = response[response.length -1];
+//       //appendTag(newTag);
+//       updateBookmark(newTag);
+//     }
+//   }
+//   xhr.send();
+// }
+
 var getLastTag = () => {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://hidden-bastion-43962.herokuapp.com/tags.json');
-  xhr.onreadystatechange = function(){
-    if (xhr.readyState === 4){
-      var response = JSON.parse(xhr.response);
-      var newTag = response[response.length -1];
+  Rails.ajax({
+    //url: "http://kerri-virtualbo:3000/tags.json",
+    url: "https://hidden-bastion-43962.herokuapp.com/tags.json",
+    type: "GET",
+    success: function(data) {
+      var newTag = data[data.length -1];
+      console.log(newTag);
       //appendTag(newTag);
       updateBookmark(newTag);
     }
-  }
-  xhr.send();
+  });
 }
 
+// var getLastTag = () => {
+//   //fetch('https://hidden-bastion-43962.herokuapp.com/tags.json')
+//   fetch('http://kerri-virtualbo:3000/tags.json')
+//     .then( (response) => {
+//         return response.json() })
+//     .then( (json) => {
+//       console.log(json);
+//     });
+// };
+
+
 var updateBookmark = (data) => {
-  url = this.location.href.slice(0, -5) + ".json"
-  console.log(this);
-  var sendData = {"newTag":{"id":data.id, "tag":data.tag}};
-  console.log(JSON.stringify(sendData));
-  var xhr = new XMLHttpRequest();
-  xhr.open('PUT', url);
-    xhr.withCredentials = true;
-    xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onreadystatechange = function(){
-      location.reload();
-    }
-  xhr.send(JSON.stringify(sendData));
+  var url = this.location.href.slice(0, -5) + ".json"
+  var sendData =  {"newTag":{"id":data.id, "tag":data.tag}};
+  fetch(url, {
+    method: 'put',
+    body: JSON.stringify(sendData),
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': Rails.csrfToken()
+    },
+    credentials: 'same-origin'
+  }).then(function(response) {
+    return response.json();
+  }).then(function(data) {
+    console.log(data);
+    location.reload();
+  });
 }
+
+
+// var updateBookmark = (data) => {
+//   var url = this.location.href.slice(0, -5) + ".json"
+//   console.log(this);
+//   var sendData = {"newTag":{"id":data.id, "tag":data.tag}};
+//   console.log(JSON.stringify(sendData));
+//   var xhr = new XMLHttpRequest();
+//   xhr.open('PUT', url);
+//     xhr.withCredentials = true;
+//     xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
+//     xhr.setRequestHeader('Content-Type', 'application/json');
+//     xhr.onreadystatechange = function(){
+//       location.reload();
+//     }
+//   xhr.send(JSON.stringify(sendData));
+// }
 
 // var appendTag = (data) => {
 //   var newTagEl = document.createElement('span');
