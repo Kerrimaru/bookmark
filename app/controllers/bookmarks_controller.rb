@@ -117,7 +117,7 @@ class BookmarksController < ApplicationController
   private
 
     def set_bookmark
-      @bookmark = Bookmark.find(params[:id])
+      @bookmark = current_user.bookmarks.find(params[:id])
     end
 
     def bookmark_params
