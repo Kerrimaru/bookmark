@@ -12,6 +12,7 @@
  *
  *= require reset.css
  *= require bookmarks.css
+ *= require tags.css
  *= require default.css
  */
 
@@ -84,14 +85,14 @@ h2 {
 }
 
 .new-edit-container .actions input {
-  margin-top: 20px;
+  margin-top: 40px;
   margin-bottom: 20px;
   border-color: #a9a9a9;
   border-width: 0.5px;
   color: black;
   background: #ffffff;
-  height: 25px;
-  width: 100%;
+  height: 27px;
+  width: 80%;
 }
 
 #bookmark_tags {

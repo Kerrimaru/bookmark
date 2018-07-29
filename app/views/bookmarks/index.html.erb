@@ -41,8 +41,12 @@
     <div class='tag'>
       <%= radio_button_tag(:created_at, "oldest") %>
       <%= label_tag(:created_at, "Oldest first") %>
-    </div>
+    </div><br>
     <h3>Select tags:</h3>
+    <% if @tags.count == 0 %>
+      <br><br>
+      <p>You have not yet added any tags. Edit a bookmark to add some</p>
+    <% end %>
     <ul>
       <% @tags.each do |tag| %>        
         <li class='tag'>
@@ -53,10 +57,7 @@
     </ul>
     <%= submit_tag "Search", id: "tag-search-but" %>
   <% end %>
-  <% if @tags.count == 0 %>
-    <br>
-    <p>You have not yet added any tags. Edit a bookmark to add some</p>
-  <% end %>
+  
 </aside>
 
 <section id='bookmarks-list'>
