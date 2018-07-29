@@ -4,16 +4,16 @@
       <h2><%= pluralize(tag.errors.count, "error") %> prohibited this tag from being saved:</h2>
 
       <ul>
-      <% bookmark.errors.full_messages.each do |message| %>
+      <% tag.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
-
   <div class="field">
     <%= form.label :tag %>
     <%= form.text_field :tag %>
+    <%= form.hidden_field :bookmark_id, value: params[:id] %>
   </div>
 
   <div class="actions">

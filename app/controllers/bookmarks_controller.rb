@@ -29,6 +29,7 @@ class BookmarksController < ApplicationController
   end
 
   def edit
+    @tag = Tag.new
   end
 
   def create

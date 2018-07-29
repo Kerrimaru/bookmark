@@ -49,8 +49,8 @@
   </div>
   <% end %>
 
-  <input id='newTag'> </input>
-  <button id='newButt'>Create New Tag</button>
+  <%= render 'tags/form', tag: @tag %>
+
 </div>
 
 <script>
@@ -63,64 +63,64 @@ var addNewListener = (el) => {
   });
 }
 
-document.getElementById('newButt').addEventListener('click', function(){
-  var tagField = document.getElementById('newTag');
-  tagValue = tagField.value.trim();
-  createTag(tagValue);
-  tagField.value = "";
-})
+// document.getElementById('newButt').addEventListener('click', function(){
+//   var tagField = document.getElementById('newTag');
+//   tagValue = tagField.value.trim();
+//   createTag(tagValue);
+//   tagField.value = "";
+// })
 
-var createTag = (data) => {
-  var sendData =  {"tag": {"tag":data}};
-  fetch('https://hidden-bastion-43962.herokuapp.com/tags.json', {
-  //fetch('http://kerri-virtualbo:3000/tags.json', {
-    method: 'post',
-    body: JSON.stringify(sendData),
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': Rails.csrfToken()
-    },
-    credentials: 'include',
-  }).then(function(response) {
-    return response.json();
-  }).then(function(data) {
-    console.log(data);
-    getLastTag();
-  });
-}
+// var createTag = (data) => {
+//   var sendData =  {"tag": {"tag":data}};
+//   fetch('https://hidden-bastion-43962.herokuapp.com/tags.json', {
+//   //fetch('http://kerri-virtualbo:3000/tags.json', {
+//     method: 'post',
+//     body: JSON.stringify(sendData),
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'X-CSRF-Token': Rails.csrfToken()
+//     },
+//     credentials: 'include',
+//   }).then(function(response) {
+//     return response.json();
+//   }).then(function(data) {
+//     console.log(data);
+//     getLastTag();
+//   });
+// }
 
-var getLastTag = () => {
-  Rails.ajax({
-    //url: "http://kerri-virtualbo:3000/tags.json",
-    url: "https://hidden-bastion-43962.herokuapp.com/tags.json",
-    type: "GET",
-    success: function(data) {
-      var newTag = data[data.length -1];
-      console.log(newTag);
-      updateBookmark(newTag);
-    }
-  });
-}
+// var getLastTag = () => {
+//   Rails.ajax({
+//     //url: "http://kerri-virtualbo:3000/tags.json",
+//     url: "https://hidden-bastion-43962.herokuapp.com/tags.json",
+//     type: "GET",
+//     success: function(data) {
+//       var newTag = data[data.length -1];
+//       console.log(newTag);
+//       updateBookmark(newTag);
+//     }
+//   });
+// }
 
-var updateBookmark = (data) => {
-  var url = this.location.href.slice(0, -5) + ".json"
-  console.log(url);
-  var sendData =  {"newTag":{"id":data.id, "tag":data.tag}};
-  fetch(url, {
-    method: 'put',
-    body: JSON.stringify(sendData),
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': Rails.csrfToken()
-    },
-    credentials: 'include',
-  }).then(function(response) {
-    return response.json();
-  }).then(function(data) {
-    console.log(data);
-    location.reload();
-  });
-}
+// var updateBookmark = (data) => {
+//   var url = this.location.href.slice(0, -5) + ".json"
+//   console.log(url);
+//   var sendData =  {"newTag":{"id":data.id, "tag":data.tag}};
+//   fetch(url, {
+//     method: 'put',
+//     body: JSON.stringify(sendData),
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'X-CSRF-Token': Rails.csrfToken()
+//     },
+//     credentials: 'include',
+//   }).then(function(response) {
+//     return response.json();
+//   }).then(function(data) {
+//     console.log(data);
+//     location.reload();
+//   });
+// }
 
 window.addEventListener('DOMContentLoaded', function() {
   var tags = document.querySelectorAll('.main-tag')
