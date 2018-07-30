@@ -6,8 +6,8 @@ class TagsController < ApplicationController
     @tags = Tag.all
   end
 
-  def new
-  end
+  # def new
+  # end
 
   def create
     @tag = Tag.new(tag_params)
