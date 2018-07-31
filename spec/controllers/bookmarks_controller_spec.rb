@@ -50,7 +50,6 @@ RSpec.describe BookmarksController, type: :controller do
   describe "GET #index" do
     it "returns a success response" do
       bookmark = Bookmark.create! valid_attributes
-      #binding.pry
       get :index, params: {user: valid_user}
       expect(response).to be_success
     end
