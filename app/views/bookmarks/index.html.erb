@@ -48,12 +48,7 @@
       <p>You have not yet added any tags. Edit a bookmark to add some</p>
     <% end %>
     <ul>
-      <% @tags.each do |tag| %>        
-        <li class='tag'>
-          <%= check_box_tag "[tag][]", tag.id %>
-          <%= label_tag :tag, tag.tag.capitalize %>
-        </li>
-      <% end %>
+      <%= render @tags %>
     </ul>
     <%= submit_tag "Search", id: "tag-search-but" %>
   <% end %>
