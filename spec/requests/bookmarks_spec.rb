@@ -12,7 +12,7 @@ RSpec.describe "Bookmarks", type: :request do
   before do
     @tag = Tag.create(tag: "doggos")
     @b1 = Bookmark.create!(title: "I love dogs", url: "dogs.com", user: valid_user, tags: [@tag])
-    @b2 = Bookmark.create!(title: "I love poetry", url: "poetry.com", user: valid_user)
+    @b2 = Bookmark.create!(title: "I love poetry", url: "poetry.com", user: valid_user, tags: [@tag], created_at: "Mon, 30 Jul 2018 17:15:59 UTC +00:00")
     @b3 = Bookmark.create!(title: "I love music", url: "music.com", user: valid_user)
     @b4 = Bookmark.create!(title: "I love dogs and puppies", url: "dogsandpuppies.com", user: valid_user)
     sign_in valid_user
@@ -40,6 +40,13 @@ RSpec.describe "Bookmarks", type: :request do
       expect(response).to have_http_status(200)
       expect(response.body).to include(@b1.title)
     end
+
+    # it "orders by oldest bookmark first" do
+    #   get bookmarks_path, params: {tag: [@tag.id], created_at: "oldest"}
+    #   expect(response).to have_http_status(200)
+    #   expect(response.body).to include(@b2.title)
+    # end
+
   end
 
 end
