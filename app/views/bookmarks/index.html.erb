@@ -72,27 +72,30 @@
 </section>
 
 <script type="text/javascript">
+
+var filters = document.getElementById("filters");
+var open = document.getElementById("open-button");
+var close = document.getElementById("close-button");
   
-document.getElementById('open-button').addEventListener('click', function(){
+open.addEventListener('click', function(){
   openNav();
 })
-document.getElementById('close-button').addEventListener('click', function(){
+close.addEventListener('click', function(){
   closeNav();
 })
 
 function openNav(){
-  //document.getElementById("bookmarks-list").style.marginLeft = "18vw";
-  document.getElementById("filters").style.width = "16vw";
-  document.getElementById("filters").style.display = "inline-block";
-  document.getElementById("open-button").style.display = 'none';
-  document.getElementById("close-button").style.display = 'inline-block';
+  filters.style.width = "16vw";
+  filters.style.display = "inline-block";
+  open.style.display = 'none';
+  close.style.display = 'inline-block';
 }
 
 function closeNav(){
   document.getElementById("bookmarks-list").style.marginLeft = "0%";
-  document.getElementById("filters").style.display = "none";
-  document.getElementById("open-button").style.display = "inline-block";
-  document.getElementById("close-button").style.display = 'none';
+  filters.style.display = "none";
+  open.style.display = "inline-block";
+  close.style.display = 'none';
 }
 
 </script>
