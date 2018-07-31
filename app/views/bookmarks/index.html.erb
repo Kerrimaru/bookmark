@@ -68,7 +68,7 @@
     <% extension = current_user.bookmarks.create!(url: 'https://chrome.google.com/webstore/detail/memoria-bookmark-app-exte/llfpopfhjbghfhplkjcmlfbjicajmeek?hl=en', title: 'Memoria works best with the Memoria Extension | Follow this link to download') %>
     <% extension.screenshot.attach(io: File.open('app/assets/images/bookmarks.jfif'), filename: 'bookmarks.jfif') %>
   <% end %>
-  <%= render 'list' %>
+  <%= render @bookmarks %>
 </section>
 
 <script type="text/javascript">
