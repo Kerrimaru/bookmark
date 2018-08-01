@@ -32,30 +32,30 @@
 
 
 <aside id='filters' style="display: none">
-  <h3>Sort by:</h3>
-  <%= form_tag(bookmarks_path, method: :get) do %>
-  <div class='tag'>
-      <%= radio_button_tag(:created_at, "newest", checked = true) %>
-      <%= label_tag(:created_at, "Newest first") %>
-    </div>
-    <div class='tag'>
-      <%= radio_button_tag(:created_at, "oldest") %>
-      <%= label_tag(:created_at, "Oldest first") %>
-    </div><br>
+  <div class='filter-tags'>
+    <h3>Sort by:</h3>
+
+    <%= form_tag(bookmarks_path, method: :get) do %>
+      <label class="main-tag selected radio filter-option">
+        <%= radio_button_tag(:created_at, "newest", checked = true) %>
+        Newest first
+      </label>
+      <label class="main-tag radio filter-option">
+        <%= radio_button_tag(:created_at, "oldest") %>
+        Oldest first
+      </label><br>
+
     <h3>Select tags:</h3>
+
     <% if @tags.count == 0 %>
       <br><br>
       <p>You have not yet added any tags. Edit a bookmark to add some</p>
     <% end %>
-    <ul>
-      <% @tags.each do |tag| %>        
-        <li class='tag'>
-          <%= check_box_tag "[tag][]", tag.id %>
-          <%= label_tag :tag, tag.tag.capitalize %>
-        </li>
-      <% end %>
-    </ul>
-    <%= submit_tag "Search", id: "tag-search-but" %>
+
+      <%= render @tags %>
+
+  </div>
+    <%= submit_tag "Search" %>
   <% end %>
   
 </aside>
@@ -68,31 +68,59 @@
     <% extension = current_user.bookmarks.create!(url: 'https://chrome.google.com/webstore/detail/memoria-bookmark-app-exte/llfpopfhjbghfhplkjcmlfbjicajmeek?hl=en', title: 'Memoria works best with the Memoria Extension | Follow this link to download') %>
     <% extension.screenshot.attach(io: File.open('app/assets/images/bookmarks.jfif'), filename: 'bookmarks.jfif') %>
   <% end %>
-  <%= render 'list' %>
+
+  <%= render @bookmarks %>
+  
 </section>
 
 <script type="text/javascript">
+
+var filters = document.getElementById("filters");
+var open = document.getElementById("open-button");
+var close = document.getElementById("close-button");
   
-document.getElementById('open-button').addEventListener('click', function(){
+open.addEventListener('click', function(){
   openNav();
 })
-document.getElementById('close-button').addEventListener('click', function(){
+close.addEventListener('click', function(){
   closeNav();
 })
 
 function openNav(){
-  //document.getElementById("bookmarks-list").style.marginLeft = "18vw";
-  document.getElementById("filters").style.width = "16vw";
-  document.getElementById("filters").style.display = "inline-block";
-  document.getElementById("open-button").style.display = 'none';
-  document.getElementById("close-button").style.display = 'inline-block';
+  filters.style.width = "16vw";
+  filters.style.display = "inline-block";
+  open.style.display = 'none';
+  close.style.display = 'inline-block';
 }
 
 function closeNav(){
   document.getElementById("bookmarks-list").style.marginLeft = "0%";
-  document.getElementById("filters").style.display = "none";
-  document.getElementById("open-button").style.display = "inline-block";
-  document.getElementById("close-button").style.display = 'none';
+  filters.style.display = "none";
+  open.style.display = "inline-block";
+  close.style.display = 'none';
 }
+
+var addNewListener = (el) => {
+  el.addEventListener('click', function(){
+    inputEl = this.querySelector('input');
+    if (inputEl.checked){
+      this.classList.toggle('selected');
+    }
+    if(this.classList.contains("radio")){
+      var radios = document.querySelectorAll('.radio');
+      radios.forEach(function(radio){
+        radio.classList.remove('selected')
+      });
+      this.classList.add('selected');
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  var tags = document.querySelectorAll('.filter-option')
+  for(let i = 0; i < tags.length; i++) {
+    addNewListener(tags[i]);
+  };
+})
 
 </script>
