@@ -98,9 +98,13 @@
   h3 {
     display: inline;
   }
-  li {
+  label {
     min-width: 150px;
   }
+}
+
+.filter-tags input{
+    display: none;
 }
 
 h3 {
@@ -166,7 +170,7 @@ li {
   text-transform: capitalize;
 }
 
-#add_tags .selected{
+.selected{
   background: #83d0f2;;
 }
 

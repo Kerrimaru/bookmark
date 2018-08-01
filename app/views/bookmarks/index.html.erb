@@ -32,16 +32,18 @@
 
 
 <aside id='filters' style="display: none">
-  <h3>Sort by:</h3>
-  <%= form_tag(bookmarks_path, method: :get) do %>
-  <div class='tag'>
-      <%= radio_button_tag(:created_at, "newest", checked = true) %>
-      <%= label_tag(:created_at, "Newest first") %>
-    </div>
-    <div class='tag'>
-      <%= radio_button_tag(:created_at, "oldest") %>
-      <%= label_tag(:created_at, "Oldest first") %>
-    </div><br>
+  <div class='filter-tags'>
+    <h3>Sort by:</h3>
+    <%= form_tag(bookmarks_path, method: :get) do %>
+      <label class="main-tag selected radio filter-option">
+        <%= radio_button_tag(:created_at, "newest", checked = true) %>
+        Newest first
+      </label>
+      <label class="main-tag radio filter-option">
+        <%= radio_button_tag(:created_at, "oldest") %>
+        Oldest first
+      </label><br>
+
     <h3>Select tags:</h3>
     <% if @tags.count == 0 %>
       <br><br>
@@ -50,7 +52,8 @@
     <ul>
       <%= render @tags %>
     </ul>
-    <%= submit_tag "Search", id: "tag-search-but" %>
+  </div>
+    <%= submit_tag "Search" %>
   <% end %>
   
 </aside>
@@ -92,5 +95,28 @@ function closeNav(){
   open.style.display = "inline-block";
   close.style.display = 'none';
 }
+
+var addNewListener = (el) => {
+  el.addEventListener('click', function(){
+    inputEl = this.querySelector('input');
+    if (inputEl.checked){
+      this.classList.toggle('selected');
+    }
+    if(this.classList.contains("radio")){
+      var radios = document.querySelectorAll('.radio');
+      radios.forEach(function(radio){
+        radio.classList.remove('selected')
+      });
+      this.classList.add('selected');
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  var tags = document.querySelectorAll('.filter-option')
+  for(let i = 0; i < tags.length; i++) {
+    addNewListener(tags[i]);
+  };
+})
 
 </script>
