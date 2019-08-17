@@ -61,3 +61,7 @@ gem 'will_paginate'
 
 # Amazon aws storage
 gem "aws-sdk-s3", require: false
+
+gem 'devise_token_auth'
+gem 'omniauth'
+gem 'rack-cors', :require => 'rack/cors'

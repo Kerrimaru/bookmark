@@ -24,7 +24,7 @@ default: &default
 development:
   <<: *default
   database: bookmarks_development
-  url: postgres://bookmarks:pass123@localhost:5432/bookmarks-dev
+  url: postgres://bookmarksapp:pass1234@localhost:5432/bookmarks-dev
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -60,7 +60,7 @@ development:
 test:
   <<: *default
   database: bookmark-app_test
-  url: postgres://bookmarks:pass123@localhost:5432/bookmarks-test
+  url: postgres://bookmarksapp:pass1234@localhost:5432/bookmarks-test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
