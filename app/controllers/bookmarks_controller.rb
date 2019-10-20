@@ -1,12 +1,12 @@
 class BookmarksController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
-                :authenticate_user!
+                # :authenticate_user!
   
   def index
-    @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq.sort_by &:tag
-    @bookmarks = current_user.bookmarks.page(params[:page]).newest
-
+    # @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq.sort_by &:tag
+    # @bookmarks = current_user.bookmarks.page(params[:page]).newest
+   
     if params[:tag]
       tag_ids = params[:tag].map {|tag| tag.to_i}
       @bookmarks = @bookmarks.select{ |bm| (tag_ids - bm.tags.ids).empty? }
@@ -19,9 +19,19 @@ class BookmarksController < ApplicationController
     if params[:created_at] == "oldest"
       @bookmarks = @bookmarks.sort_by{|bookmark| bookmark.created_at}
     end
+
+    # test only!!
+    @bookmarks = Bookmark.all
+    @tags = Tag.all
+
+    # render json: {'bookmarks': @bookmarks, 'tags': @tags}
+    # render json: @bookmarks, include: [:screenshot, :tags]
+    render json: @bookmarks.map { |bookmark| bookmark.as_json.merge({ screenshot: url_for(bookmark.screenshot), tags: bookmark.tags})}
   end
 
   def show
+    # test 
+    render json: @bookmark, include: [:screenshot, :tags]
   end
 
   def new
@@ -33,7 +43,9 @@ class BookmarksController < ApplicationController
   end
 
   def create
+    # binding.pry
      if params[:bookmark][:auto]
+      # binding.pry
       file = Tempfile.new('screenshot')
       file.binmode
       file.write(Base64.decode64(params[:bookmark][:screenshot][:io]))
@@ -45,9 +57,16 @@ class BookmarksController < ApplicationController
       })
       params[:bookmark][:screenshot] = upload
     end
+#  binding.pry
+    # test >>>
+    @user = User.all[0]
+    # binding.pry
+    # @bookmark = new Bookmark(bookmark_params, user: @user)
+    @bookmark = @user.bookmarks.new(bookmark_params)
+    # test ^^^^^
 
-    @bookmark = current_user.bookmarks.new(bookmark_params)
-
+    # @bookmark = current_user.bookmarks.new(bookmark_params)
+    
     if params[:bookmark][:tags]
       tags = params[:bookmark][:tags].select do |tag|
         !tag.empty? && !@bookmark.tags.ids.include?(tag)
@@ -57,7 +76,7 @@ class BookmarksController < ApplicationController
           @bookmark.tags << tag
       end
     end
-
+    
     if params[:tag]
       tag_ids = params[:tag].map {|tag| tag.to_i}
       tags = tag_ids.select do |tag|
@@ -68,11 +87,15 @@ class BookmarksController < ApplicationController
         @bookmark.tags << tag
       end
     end
-
+    
     respond_to do |format|
       if @bookmark.save
-        format.html { redirect_to '/', notice: 'Bookmark was successfully created.' }
-        format.json { render :show, status: :created, location: @bookmark }
+        # binding.pry
+        # format.html { redirect_to '/', notice: 'Bookmark was successfully created.' }
+        # format.json { render :show, status: :created, location: @bookmark }
+        @bookmarks = Bookmark.all
+        render json: @bookmarks.map { |bookmark| bookmark.as_json.merge({ screenshot: url_for(bookmark.screenshot), tags: bookmark.tags})}
+        # render json: @bookmark
       else
         format.html { render :new }
         format.json { render json: @bookmark.errors, status: :unprocessable_entity }
