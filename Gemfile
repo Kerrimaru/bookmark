@@ -61,3 +61,5 @@ gem 'will_paginate'
 
 # Amazon aws storage
 gem "aws-sdk-s3", require: false
+
+gem 'react-rails'
