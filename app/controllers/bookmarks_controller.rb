@@ -6,6 +6,8 @@ class BookmarksController < ApplicationController
   def index
     @tags = current_user.bookmarks.collect {|bm| bm.tags}.flatten.uniq.sort_by &:tag
     @bookmarks = current_user.bookmarks.page(params[:page]).newest
+    # react code following!
+    @user = current_user
 
     if params[:tag]
       tag_ids = params[:tag].map {|tag| tag.to_i}
@@ -19,6 +21,25 @@ class BookmarksController < ApplicationController
     if params[:created_at] == "oldest"
       @bookmarks = @bookmarks.sort_by{|bookmark| bookmark.created_at}
     end
+
+    # JSON::extract! @bookmarks[0], :id, :url, :screenshot, :title, :created_at, :updated_at, :tags
+    # JSON::url bookmark_url(@bookmarks[0], format: :json)
+    # format.json { render json: Jbuilder.new { |json| json.array! @bookmarks, :screenshot  }.target! }
+    # format.json { render json: @bookmarks[0].select(:screenshot) }
+    # format.json { render json: @bookmarks[0], status :screenshot }
+    
+    # respond_to do |format|
+    #   # format.json { render json: @bookmarks[0].select(:screenshot) }
+    #   # format.json { render json: {}, status: :ok}
+    #   format.json { render json: Jbuilder.new { |json| json.array! @bookmarks, :id, :url, :screenshot, :title, :created_at, :updated_at, :tags  }.target! }
+    # end
+
+    #  binding.pry
+    #uncomment for react, comment out both for rails
+    # render json: @bookmarks.to_json  
+    # render @bookmarks
+
+    render json: @bookmarks.map { |bookmark| bookmark.as_json.merge({ screenshot: url_for(bookmark.screenshot), tags: bookmark.tags, user: @user })}
   end
 
   def show
